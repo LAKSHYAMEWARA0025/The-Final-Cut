@@ -19,50 +19,6 @@ const CalendarIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-// --- Multi-Stroke Doodle Arrow Icon ---
-const MultiStrokeArrowIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    width="95"
-    height="65"
-    viewBox="0 0 95 65"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    {/* Stroke 1: Main Curve */}
-    <path
-      d="M12.5 12.5C28.5 6.5 65.5 8.5 82.5 35.5"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      className="opacity-90"
-    />
-    {/* Stroke 2: Secondary Curve (Overlapping) */}
-    <path
-      d="M15.5 15.5C30.5 10.5 62.5 12.5 78.5 32.5"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      className="opacity-70"
-    />
-    
-    {/* Arrow Head Stroke 1 */}
-    <path
-      d="M62.5 32.5C70.5 35.5 78.5 38.5 82.5 35.5C80.5 30.5 78.5 25.5 76.5 20.5"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-    />
-    {/* Arrow Head Stroke 2 (Roughness) */}
-    <path
-      d="M65.5 35.5C72.5 37.5 79.5 39.5 83.5 36.5"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      className="opacity-80"
-    />
-  </svg>
-);
 
 const Hero: React.FC = () => {
   const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };

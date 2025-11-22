@@ -1,8 +1,7 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 
-// --- Design Palette Mapping ---
-const ORANGE_ACCENT = "#F97316";
+
 
 interface Step {
   title: string;
