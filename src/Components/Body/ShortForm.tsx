@@ -34,15 +34,12 @@ const VolumeMuteIcon = (props: SVGProps<SVGSVGElement>) => (
 const VideoPlayer = ({ src }: { src: string }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(true); // start as playing (we will ensure play in effect)
+  const [isPlaying, setIsPlaying] = useState(true);
 
-  // Try to autoplay when the src changes / component mounts.
-  // Important: ensure video is muted before calling play to satisfy browser autoplay rules.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
 
-    // Force muted before attempting play (helps some browsers)
     v.muted = true;
     setIsMuted(true);
 
@@ -51,24 +48,19 @@ const VideoPlayer = ({ src }: { src: string }) => {
         await v.play();
         setIsPlaying(true);
       } catch (err) {
-        // play failed (browser policy or not ready). mark as paused.
         setIsPlaying(false);
       }
     };
 
     tryPlay();
-
-    // cleanup not required here
   }, [src]);
 
-  // Keep the video element's muted property synced to state (when user toggles)
   useEffect(() => {
     if (videoRef.current) videoRef.current.muted = isMuted;
   }, [isMuted]);
 
   const toggleMute = () => {
     setIsMuted((prev) => !prev);
-    // video.muted is synced by the effect above
   };
 
   const togglePlay = async () => {
@@ -93,7 +85,8 @@ const VideoPlayer = ({ src }: { src: string }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.45 }}
-      className="relative group bg-[#111111] rounded-xl overflow-hidden shadow-2xl aspect-[9/16] h-[300px] sm:h-[400px]"
+      // Increased styling: slightly darker border, consistent rounded corners
+      className="relative group bg-[#111111] rounded-2xl overflow-hidden shadow-2xl aspect-[9/16] h-[350px] sm:h-[450px] border border-[#222]"
     >
       <video
         ref={videoRef}
@@ -105,31 +98,30 @@ const VideoPlayer = ({ src }: { src: string }) => {
         preload="auto"
         className="w-full h-full object-cover"
         onError={(e) => {
-          // hide broken video gracefully
           (e.target as HTMLVideoElement).style.display = "none";
         }}
       />
 
-      {/* Play/Pause overlay — only visible on hover (group-hover) */}
+      {/* Play/Pause overlay */}
       <button
         onClick={togglePlay}
         aria-label={isPlaying ? "Pause video" : "Play video"}
         className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-hover:pointer-events-auto"
       >
-        <div className="bg-black/40 hover:bg-black/60 p-3 rounded-full border border-white/10">
+        <div className="bg-black/40 hover:bg-black/60 p-4 rounded-full border border-white/10 backdrop-blur-sm">
           {isPlaying ? (
-            <PauseIcon className="w-10 h-10 text-white" />
+            <PauseIcon className="w-8 h-8 text-white" />
           ) : (
-            <PlayIcon className="w-10 h-10 text-white" />
+            <PlayIcon className="w-8 h-8 text-white" />
           )}
         </div>
       </button>
 
-      {/* Mute/Unmute button — always visible top-right */}
+      {/* Mute/Unmute button */}
       <button
         onClick={toggleMute}
         aria-label={isMuted ? "Unmute video" : "Mute video"}
-        className="absolute top-3 right-3 z-30 bg-black/60 hover:bg-black/80 p-2.5 rounded-full border border-white/10 shadow-lg"
+        className="absolute top-3 right-3 z-30 bg-black/60 hover:bg-black/80 p-2 rounded-full border border-white/10 shadow-lg backdrop-blur-sm transition-colors"
       >
         {isMuted ? (
           <VolumeMuteIcon className="w-5 h-5 text-white" />
@@ -142,25 +134,40 @@ const VideoPlayer = ({ src }: { src: string }) => {
 };
 
 /* -------------------
-   ShortFormSection - grid of videos
+   ShortFormSection
    ------------------- */
 const videos = [
-  { src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273129/short1_b3drzw.mp4" },
-  { src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273117/short2_yxndjg.mp4" },
-  { src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273133/short4_abfdzu.mp4" },
-  { src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273147/short5_yp3fat.mp4" },
-  { src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273139/short6_bgvgmt.mp4" },
+  {
+    src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273129/short1_b3drzw.mp4",
+  },
+  {
+    src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273117/short2_yxndjg.mp4",
+  },
+  {
+    src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273133/short4_abfdzu.mp4",
+  },
+  {
+    src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273139/short6_bgvgmt.mp4",
+  },
 ];
 
 const ShortFormSection = () => {
   return (
     <section className="bg-[#000000] text-white py-20 px-4 sm:px-10 lg:px-16 overflow-hidden">
-      <div className="flex items-center mb-8">
-        <div className="w-1 h-8 sm:h-9 mr-4 bg-gradient-to-b from-[#EFEFEF] to-[#A75A2B]" />
-        <h3 className="text-2xl sm:text-3xl font-bold">Short Form Content</h3>
-      </div>
+      {/* Centered Heading similar to Long Form Section */}
+      {/* <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-16 uppercase tracking-wider font-secondary">
+        Short <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">Form Content</span>
+      </h2> */}
+      {/* Replace the existing <h2> with this: */}
+      <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter text-center mb-16 font-sans">
+        Short{" "}
+        <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
+          Form Content
+        </span>
+      </h2>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 max-w-7xl mx-auto">
+      {/* Centered Grid with larger gaps */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 max-w-7xl mx-auto place-items-center">
         {videos.map((v, i) => (
           <VideoPlayer key={i} src={v.src} />
         ))}

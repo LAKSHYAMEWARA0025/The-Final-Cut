@@ -24,32 +24,47 @@ const TrustedBy: React.FC = () => {
   return (
     <section className="bg-[#000000] py-20 text-white relative overflow-hidden font-primary">
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-16 uppercase tracking-wider">
+        {/* <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-16 uppercase tracking-wider">
           Trusted by the <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">Industry Leaders</span>
+        </h2> */}
+        {/* Replace the existing <h2> with this: */}
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter text-center mb-16 font-sans">
+          Trusted by the{" "}
+          <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
+            Industry Leaders
+          </span>
         </h2>
       </div>
 
-      <div 
+      <div
         className="w-full overflow-hidden relative"
         style={{
-          maskImage: 'linear-gradient(to right, transparent, black 15%, black 85%, transparent 100%)',
+          maskImage:
+            "linear-gradient(to right, transparent, black 15%, black 85%, transparent 100%)",
         }}
       >
-        <div 
-          className="flex whitespace-nowrap gap-12 sm:gap-20 py-4 animate-scroll"
+        {/* Reduced gap here from gap-12/20 to gap-8/12 */}
+        <div
+          className="flex whitespace-nowrap gap-8 sm:gap-12 py-4 animate-scroll"
           style={{ animationDuration: `${animationDuration}s` }}
         >
           {logos.map((company, idx) => (
             <div
               key={idx}
-              className="flex-shrink-0 flex items-center justify-center min-w-[180px] sm:min-w-[240px] h-28 group"
+              // Reduced min-w so logos sit closer together
+              className="flex-shrink-0 flex items-center justify-center min-w-[140px] sm:min-w-[200px] h-32 group"
             >
               <img
                 src={company.logo}
                 alt={company.name}
-                className="h-28 sm:h-20 w-auto object-contain transition-all duration-300 filter grayscale brightness-0 invert opacity-70 group-hover:opacity-100 group-hover:scale-115"
+                // Increased height: h-24 (mobile) and sm:h-32 (desktop)
+                className="h-24 sm:h-32 w-auto object-contain transition-all duration-300 filter grayscale brightness-0 invert opacity-70 group-hover:opacity-100 group-hover:scale-110"
                 // Fallback in case a logo fails to load
-                onError={(e) => { (e.currentTarget as HTMLImageElement).src = `https://placehold.co/240x80/000000/FFFFFF?text=${company.name}`; }}
+                onError={(e) => {
+                  (
+                    e.currentTarget as HTMLImageElement
+                  ).src = `https://placehold.co/240x120/000000/FFFFFF?text=${company.name}`;
+                }}
               />
             </div>
           ))}
@@ -77,4 +92,3 @@ const TrustedBy: React.FC = () => {
 };
 
 export default TrustedBy;
-

@@ -88,11 +88,46 @@ interface Testimonial {
 }
 
 const testimonials: Testimonial[] = [
-  { video: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273120/Raj_dmmst5.mp4", name: "Striver(Raj)", role: "Founder of TUF, ex SDE at Google & Amazon", review: "He takes the ownership. I would call him around 2 Am and will tell him that we need it live within next 12 hours and he delivers it!." },
-  { video: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273156/Aarushi_pmzyme.mov", name: "Aarushi Bedi", role: "Founder of The Fluent Flyers, Ex International Cabin Crew", review: "He always delivered on time and were always up for last minute changes. Really good ctr." },
-  { video: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760275963/Saumya_vblbiu.mov", name: "Saumya Singh", role: "TEDx Speaker, Josh Talks Speaker, ex-SDE at RedHat", review: "Very satisfied and impress by his work, very talented and hardworking guy! He takes the responsibility!" },
-  { video: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273142/Shreyansh_pmqxx8.mp4", name: "Shreyansh Goyal", role: "TEDx speaker, SDE", review: "I started working with him when I had somewhat 2k subscribers and with him I've scaled to 150k subscribers." },
-  { video: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760275405/VidhiKalra_uo53x8.mp4", name: "Vidhi Karla", role: "Founder of 5-minute economics", review: "He is really good with editing and apart from that he also helped me grow my channel 10x." },
+  {
+    video:
+      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273120/Raj_dmmst5.mp4",
+    name: "Striver(Raj)",
+    role: "Founder of TUF, ex SDE at Google & Amazon",
+    review:
+      "He takes the ownership. I would call him around 2 Am and will tell him that we need it live within next 12 hours and he delivers it!.",
+  },
+  {
+    video:
+      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273156/Aarushi_pmzyme.mov",
+    name: "Aarushi Bedi",
+    role: "Founder of The Fluent Flyers, Ex International Cabin Crew",
+    review:
+      "He always delivered on time and were always up for last minute changes. Really good ctr.",
+  },
+  {
+    video:
+      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760275963/Saumya_vblbiu.mov",
+    name: "Saumya Singh",
+    role: "TEDx Speaker, Josh Talks Speaker, ex-SDE at RedHat",
+    review:
+      "Very satisfied and impress by his work, very talented and hardworking guy! He takes the responsibility!",
+  },
+  {
+    video:
+      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273142/Shreyansh_pmqxx8.mp4",
+    name: "Shreyansh Goyal",
+    role: "TEDx speaker, SDE",
+    review:
+      "I started working with him when I had somewhat 2k subscribers and with him I've scaled to 150k subscribers.",
+  },
+  {
+    video:
+      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760275405/VidhiKalra_uo53x8.mp4",
+    name: "Vidhi Karla",
+    role: "Founder of 5-minute economics",
+    review:
+      "He is really good with editing and apart from that he also helped me grow my channel 10x.",
+  },
 ];
 
 const VideoPlayer = ({ src }: { src: string }) => {
@@ -132,7 +167,7 @@ const VideoPlayer = ({ src }: { src: string }) => {
         className="w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-      
+
       {/* Buttons - fixed visibility */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-4 z-20">
         <button
@@ -160,13 +195,26 @@ const Testimonials = () => {
     []
   );
   const prevTestimonial = useCallback(
-    () => setIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length),
+    () =>
+      setIndex(
+        (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      ),
     []
   );
 
   return (
-    <section id="testimonials" className="bg-[#000000] text-white py-24 px-6 sm:px-10 lg:px-20 relative overflow-hidden font-primary">
-      <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-16 uppercase tracking-wider">
+    <section
+      id="testimonials"
+      className="bg-[#000000] text-white py-24 px-6 sm:px-10 lg:px-20 relative overflow-hidden font-primary"
+    >
+      {/* <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-16 uppercase tracking-wider">
+        What people say{" "}
+        <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
+          when we’re not
+        </span>{" "}
+        in the room
+      </h2> */}
+      <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-16 tracking-tighter font-sans">
         What people say{" "}
         <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
           when we’re not

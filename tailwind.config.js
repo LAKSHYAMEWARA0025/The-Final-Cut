@@ -25,8 +25,14 @@ export default {
       },
 
       fontFamily: {
+        // 1. Sets Inter as the default Tailwind font (font-sans)
+        sans: ["Inter", "sans-serif"], 
+        
+        // 2. Updates your custom class (font-primary) to use Inter
         primary: ["Inter", "sans-serif"],
-        heading: ["Oswald", "sans-serif"],
+
+        // 3. UPDATED: Changed headings to use Inter (was Oswald) to match the screenshot
+        heading: ["Inter", "sans-serif"], 
       },
 
       animation: {
