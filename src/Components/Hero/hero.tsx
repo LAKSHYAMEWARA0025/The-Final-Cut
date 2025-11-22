@@ -19,6 +19,51 @@ const CalendarIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+// --- Multi-Stroke Doodle Arrow Icon ---
+const MultiStrokeArrowIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    width="95"
+    height="65"
+    viewBox="0 0 95 65"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    {/* Stroke 1: Main Curve */}
+    <path
+      d="M12.5 12.5C28.5 6.5 65.5 8.5 82.5 35.5"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      className="opacity-90"
+    />
+    {/* Stroke 2: Secondary Curve (Overlapping) */}
+    <path
+      d="M15.5 15.5C30.5 10.5 62.5 12.5 78.5 32.5"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      className="opacity-70"
+    />
+    
+    {/* Arrow Head Stroke 1 */}
+    <path
+      d="M62.5 32.5C70.5 35.5 78.5 38.5 82.5 35.5C80.5 30.5 78.5 25.5 76.5 20.5"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+    {/* Arrow Head Stroke 2 (Roughness) */}
+    <path
+      d="M65.5 35.5C72.5 37.5 79.5 39.5 83.5 36.5"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      className="opacity-80"
+    />
+  </svg>
+);
+
 const Hero: React.FC = () => {
   const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
   const statItems = [
@@ -28,45 +73,72 @@ const Hero: React.FC = () => {
   ];
 
   return (
-    <section className="relative min-h-screen w-full bg-black bg-[url('/HomePageBg/hom.jpg')] bg-center bg-cover opacity-0.5">
-      {/* Dark overlay */}
-      {/* <div className="absolute inset-0 bg-black/60 z-2"></div>
-       */}
-       <div className="absolute inset-0 z-10 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,0.5)_30%,rgba(0,0,0,0.85)_80%,rgba(0,0,0,1)_100%)]"></div>
+    <section className="relative min-h-screen w-full bg-black bg-[url('/HomePageBg/hom.jpg')] bg-center bg-cover opacity-0.5 font-sans">
+      <div className="absolute inset-0 z-10 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,0.5)_30%,rgba(0,0,0,0.85)_80%,rgba(0,0,0,1)_100%)]"></div>
 
-      {/* Hero content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 py-20 md:py-32 gap-8">
+      {/* Hero content - High top padding */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 pt-48 pb-20 md:pt-64 md:pb-32 gap-6">
+        
         {/* Headline */}
-        {/* <motion.h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white max-w-5xl tracking-tight" variants={itemVariants} initial="hidden" animate="visible">
-          We help <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">startups and businesses  </span>build their <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">personal brand</span> organically.
-        </motion.h1> */}
-        <motion.h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white max-w-5xl tracking-tight leading-tight" variants={itemVariants} initial="hidden" animate="visible">
-    We help <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">startups and businesses</span><br/>
-    build their <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">personal brand</span> organically.
-  </motion.h1>
+        <motion.h1 
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white max-w-5xl tracking-tighter leading-tight" 
+          variants={itemVariants} 
+          initial="hidden" 
+          animate="visible"
+        >
+          We help <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">startups and businesses </span>
+          build their <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">personal brand</span> organically.
+        </motion.h1>
 
         {/* Subtext */}
-        <motion.p className="text-gray-300 text-lg sm:text-xl max-w-3xl" variants={itemVariants}>
+        <motion.p 
+          className="text-gray-300 text-base sm:text-lg max-w-6xl w-full" 
+          variants={itemVariants}
+        >
           Transform your knowledge into compelling short-form videos that captivate your audience, generate leads effortlessly, and build a brand they can’t ignore.
         </motion.p>
 
-        {/* CTA */}
-        <motion.div variants={itemVariants}>
+        {/* CTA with Glow & NEW Doodle Arrow */}
+        <motion.div variants={itemVariants} className="mt-8 relative group">
+          
+          {/* Glowing Border */}
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-amber-500 rounded-lg blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
+
+          {/* Button */}
           <a
             href="https://cal.com/itsvijaychoudhary/schedule-a-call"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[linear-gradient(to_right,#262626,#502D1B_45%,#BF4C13)] text-white px-8 sm:px-10 py-4 rounded-lg shadow-xl shadow-orange-500/30 text-base sm:text-lg font-bold uppercase transition-all duration-300 transform hover:scale-105"
+            className="relative block bg-[linear-gradient(to_right,#262626,#502D1B_45%,#BF4C13)] text-white px-8 sm:px-10 py-4 rounded-lg shadow-xl shadow-orange-500/30 text-base sm:text-lg font-bold uppercase transition-all duration-300 transform group-hover:scale-105"
           >
             Book a Free Discovery Call
           </a>
+
+          {/* NEW Doodle Arrow Positioned Below 
+             - top-[110%] pushes it below the button
+             - right-[-20%] moves it slightly to the right
+             - rotate-12 gives it that natural angle
+          */}
+          {/* <div className="absolute top-[90%] -right-[20%] w-24 h-24 sm:w-32 sm:h-32 pointer-events-none">
+             <MultiStrokeArrowIcon className="w-full h-full text-orange-500 rotate-12 transform scale-x-[-1]" />
+          </div> */}
+          
         </motion.div>
 
         {/* Stats */}
-        <motion.div className="flex flex-col md:flex-row gap-4 mt-8 w-full max-w-5xl justify-center" variants={{ hidden: { opacity: 0.7 }, visible: { transition: { staggerChildren: 0.2 } } }} initial="hidden" animate="visible">
+        <motion.div 
+          className="flex flex-col md:flex-row gap-4 mt-8 w-full max-w-5xl justify-center" 
+          variants={{ hidden: { opacity: 0.7 }, visible: { transition: { staggerChildren: 0.2 } } }} 
+          initial="hidden" 
+          animate="visible"
+        >
           {statItems.map((item, idx) => (
-            <motion.div key={idx} variants={itemVariants} className="flex items-center gap-3 px-5 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 hover:border-white/50 transition-all duration-300 text-white text-base md:text-lg w-full md:w-auto justify-center">
-              <item.icon className="w-6 h-6 text-white/90" />
+            <motion.div 
+              key={idx} 
+              variants={itemVariants} 
+              className="flex items-center gap-3 px-5 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm sm:text-base w-full md:w-auto justify-center"
+            >
+              <item.icon className="w-5 h-5 text-white/90" />
               <span className="font-semibold">{item.text}</span>
             </motion.div>
           ))}
@@ -77,4 +149,3 @@ const Hero: React.FC = () => {
 };
 
 export default Hero;
-
