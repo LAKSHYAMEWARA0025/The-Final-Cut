@@ -57,7 +57,7 @@ const Footer: React.FC = () => {
 
       <div className="relative z-10 pt-10 flex flex-col md:flex-row justify-between items-center md:items-end max-w-7xl mx-auto gap-12">
         <div className="flex flex-col items-center md:items-start gap-2 flex-shrink-0">
-          <span className="text-2xl sm:text-3xl font-bold tracking-wider text-white">The Final Cut</span>
+          <span className="text-2xl sm:text-3xl tracking-wider text-white">The Final Cut</span>
         </div>
 
         <div className="text-center md:text-right w-full md:w-auto">

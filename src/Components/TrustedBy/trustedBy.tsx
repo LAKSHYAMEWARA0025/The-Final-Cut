@@ -28,7 +28,7 @@ const TrustedBy: React.FC = () => {
           Trusted by the <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">Industry Leaders</span>
         </h2> */}
         {/* Replace the existing <h2> with this: */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter text-center mb-16 font-sans">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl tracking-tighter text-center mb-16 font-sans">
           Trusted by the{" "}
           <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
             Industry Leaders

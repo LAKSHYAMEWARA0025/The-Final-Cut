@@ -37,7 +37,7 @@ const Hero: React.FC = () => {
         
         {/* Headline */}
         <motion.h1 
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white max-w-5xl tracking-tighter leading-tight" 
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white max-w-5xl tracking-tighter leading-tight" 
           variants={itemVariants} 
           initial="hidden" 
           animate="visible"
@@ -58,14 +58,15 @@ const Hero: React.FC = () => {
         <motion.div variants={itemVariants} className="mt-8 relative group">
           
           {/* Glowing Border */}
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-amber-500 rounded-lg blur opacity-0 group-hover:opacity-75 transition duration-500"></div>
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-amber-500 rounded-lg blur opacity-0 group-hover:opacity-50 transition duration-500"></div>
 
           {/* Button */}
           <a
             href="https://cal.com/itsvijaychoudhary/schedule-a-call"
             target="_blank"
             rel="noopener noreferrer"
-            className="relative block bg-[linear-gradient(to_right,#262626,#502D1B_45%,#BF4C13)] text-white px-8 sm:px-10 py-4 rounded-lg shadow-xl shadow-orange-500/30 text-base sm:text-lg font-bold uppercase transition-all duration-300 transform group-hover:scale-105"
+            // Removed 'shadow-orange-500/30' so it doesn't glow by default
+            className="relative block bg-[linear-gradient(to_right,#262626,#502D1B_45%,#BF4C13)] text-white px-8 sm:px-10 py-4 rounded-lg shadow-xl text-base sm:text-lg font-bold uppercase transition-all duration-300 transform group-hover:scale-105"
           >
             Book a Free Discovery Call
           </a>

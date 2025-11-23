@@ -91,7 +91,7 @@ const Questions = () => {
   return (
     <section className="bg-[#000000] py-20 px-4 sm:px-6 lg:px-8 font-primary">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl sm:text-5xl font-extrabold text-white text-center mb-4">
+        <h2 className="text-4xl sm:text-5xl text-white text-center mb-4">
           Frequently Asked <span className="bg-gradient-to-r from-gray-200 to-orange-500 bg-clip-text text-transparent">Questions</span>
         </h2>
         <p className="text-center text-base sm:text-lg text-gray-400 mb-12">

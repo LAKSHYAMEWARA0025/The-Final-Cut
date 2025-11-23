@@ -43,7 +43,7 @@ const OwnerInfo: React.FC = () => {
         {/* <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-12 drop-shadow-md font-secondary">
           We Did it, <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">You can too</span>
         </h2> */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-12 drop-shadow-md tracking-tighter font-sans">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl mb-12 drop-shadow-md tracking-tighter font-sans">
           We Did it,{" "}
           <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
             You can too

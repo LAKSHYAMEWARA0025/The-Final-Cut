@@ -159,7 +159,7 @@ const ShortFormSection = () => {
         Short <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">Form Content</span>
       </h2> */}
       {/* Replace the existing <h2> with this: */}
-      <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter text-center mb-16 font-sans">
+      <h2 className="text-4xl sm:text-5xl md:text-6xl tracking-tighter text-center mb-16 font-sans">
         Short{" "}
         <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
           Form Content

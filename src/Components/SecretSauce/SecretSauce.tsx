@@ -55,7 +55,7 @@ const SecretSauce: React.FC = () => {
           What’s the <span className="text-[#BF4C13]">Secret?</span>
         </h2> */}
         {/* Replace the existing <h2> with this: */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-center mb-20 font-sans">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl tracking-tight text-center mb-20 font-sans">
           What’s the <span className="text-[#F97316]">Secret?</span>
         </h2>
 
@@ -99,13 +99,13 @@ const SecretSauce: React.FC = () => {
 
                   {/* Text Side */}
                   <div className="w-full md:w-1/2 space-y-4">
-                    <span className="text-sm font-bold text-orange-500 uppercase tracking-widest">
+                    <span className="text-sm text-orange-500 uppercase tracking-widest">
                       Step {idx + 1}
                     </span>
 
                     {/* --- COLOR GRADED TITLE --- */}
                     <h3
-                      className="text-2xl md:text-4xl font-secondary font-bold 
+                      className="text-2xl md:text-4xl font-secondary 
                                    bg-gradient-to-r from-white via-gray-200 to-orange-500 bg-clip-text text-transparent 
                                    pb-1"
                     >

@@ -101,7 +101,6 @@ const creators: Creator[] = [
     followers: "6M followers",
     image: "/Creators/shanaya.jpg",
   },
-  // Add as many new creators here as you like...
 ];
 
 // Duplicate for seamless infinite scrolling
@@ -120,8 +119,9 @@ const CreatorCard: React.FC<CreatorCardProps> = ({ creator }) => {
                    group-hover:opacity-80 group-hover:blur-md group-hover:scale-110`}
       />
 
+      {/* CHANGED: Reduced size from 220px to 180px */}
       <div
-        className={`relative h-[220px] w-[220px] overflow-hidden 
+        className={`relative h-[180px] w-[180px] overflow-hidden 
                    rounded-full shadow-xl cursor-pointer bg-gray-900`}
       >
         {creator.image ? (
@@ -131,8 +131,9 @@ const CreatorCard: React.FC<CreatorCardProps> = ({ creator }) => {
               alt={creator.name}
               className="w-full h-full object-cover object-top transition-opacity duration-500 group-hover:opacity-30"
               onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                // Updated placeholder size to match new dimensions
                 e.currentTarget.src =
-                  "https://placehold.co/220x220/1A1A1A/FFFFFF?text=Photo";
+                  "https://placehold.co/180x180/1A1A1A/FFFFFF?text=Photo";
               }}
             />
           </div>
@@ -145,12 +146,12 @@ const CreatorCard: React.FC<CreatorCardProps> = ({ creator }) => {
         <div
           className={`absolute inset-0 bg-black/60 backdrop-blur-sm 
                      flex flex-col items-center justify-end p-6 text-center
-                     opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full pb-8 z-20`}
+                     opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full pb-6 z-20`}
         >
-          <h3 className="text-xl font-extrabold text-white mb-1 leading-snug">
+          <h3 className="text-lg font-extrabold text-white mb-1 leading-snug">
             {creator.name}
           </h3>
-          <p className="text-md font-semibold text-gray-300 mb-4">
+          <p className="text-sm font-semibold text-gray-300 mb-2">
             {creator.followers}
           </p>
         </div>
@@ -175,7 +176,7 @@ export default function CreatorsSection(): React.JSX.Element {
       </style>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        <h2 className="text-4xl sm:text-5xl font-extrabold text-center mb-16 tracking-tighter font-sans">
+        <h2 className="text-4xl sm:text-5xl text-center mb-16 tracking-tighter font-sans">
           <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
             Creators
           </span>{" "}
@@ -184,10 +185,6 @@ export default function CreatorsSection(): React.JSX.Element {
       </div>
 
       <div className="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)]">
-        {/* FIX APPLIED HERE: added 'w-max' (width: max-content).
-           This forces the div to expand to fit ALL creators, allowing the 
-           transform:translateX(-50%) to calculate the correct distance.
-        */}
         <div className="flex gap-8 py-8 animate-scroll w-max">
           {infiniteCreators.map((creator: Creator, idx: number) => (
             <CreatorCard key={idx} creator={creator} />

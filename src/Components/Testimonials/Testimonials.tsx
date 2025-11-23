@@ -214,7 +214,7 @@ const Testimonials = () => {
         </span>{" "}
         in the room
       </h2> */}
-      <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-16 tracking-tighter font-sans">
+      <h2 className="text-4xl sm:text-5xl md:text-6xl text-center mb-16 tracking-tighter font-sans">
         What people say{" "}
         <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
           when we’re not
