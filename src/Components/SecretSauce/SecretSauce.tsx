@@ -1,8 +1,6 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 
-
-
 interface Step {
   title: string;
   text: string;
@@ -47,16 +45,17 @@ const SecretSauce: React.FC = () => {
   return (
     <section
       id="services"
-      className="relative bg-[#000000] text-white py-24 overflow-hidden"
+      // CHANGED: Fixed background to pure black as requested
+      className="relative bg-black text-[var(--color-text-primary)] py-24 overflow-hidden font-sans"
     >
       <div className="max-w-7xl mx-auto px-6">
+        
         {/* Title */}
-        {/* <h2 className="text-3xl sm:text-4xl md:text-5xl font-secondary font-extrabold text-center mb-20">
-          What’s the <span className="text-[#BF4C13]">Secret?</span>
-        </h2> */}
-        {/* Replace the existing <h2> with this: */}
-        <h2 className="text-3xl sm:text-4xl md:text-5xl tracking-tight text-center mb-20 font-sans">
-          What’s the <span className="text-[#F97316]">Secret?</span>
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-center mb-20">
+          What’s the{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]">
+            Secret?
+          </span>
         </h2>
 
         <div className="flex flex-col gap-16">
@@ -70,9 +69,13 @@ const SecretSauce: React.FC = () => {
               className="relative group"
             >
               {/* --- CARD CONTAINER --- */}
+              {/* Maintained the grey card background (var(--color-card-bg)) for contrast against the black section */}
               <div
-                className="relative flex flex-col items-center gap-8 md:gap-12 p-6 md:p-10 rounded-3xl border border-[#2E2E2E] bg-[#111111] transition-all duration-500 
-                           group-hover:border-orange-500 group-hover:shadow-[0_0_30px_-5px_rgba(249,115,22,0.4)]"
+                className="relative flex flex-col items-center gap-8 md:gap-12 p-6 md:p-10 rounded-[var(--radius-lg)] 
+                         border border-[var(--color-border)] bg-[var(--color-card-bg)] 
+                         transition-all duration-500 
+                         group-hover:border-[var(--color-primary)] 
+                         group-hover:shadow-[0_0_40px_-10px_rgba(255,122,42,0.3)]"
               >
                 {/* Inner Layout */}
                 <div
@@ -81,12 +84,12 @@ const SecretSauce: React.FC = () => {
                   }`}
                 >
                   {/* Image Side */}
-                  <div className="w-full md:w-1/2 overflow-hidden rounded-2xl">
-                    <div className="relative h-64 sm:h-80 w-full overflow-hidden rounded-2xl">
+                  <div className="w-full md:w-1/2 overflow-hidden rounded-[var(--radius-md)]">
+                    <div className="relative h-64 sm:h-80 w-full overflow-hidden rounded-[var(--radius-md)]">
                       <img
                         src={step.img}
                         alt={step.title}
-                        className="w-full h-full object-cover rounded-2xl transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
+                        className="w-full h-full object-cover rounded-[var(--radius-md)] transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
                         onError={(e) => {
                           e.currentTarget.src = `https://placehold.co/600x400/222/FFF?text=Step+${
                             idx + 1
@@ -99,20 +102,21 @@ const SecretSauce: React.FC = () => {
 
                   {/* Text Side */}
                   <div className="w-full md:w-1/2 space-y-4">
-                    <span className="text-sm text-orange-500 uppercase tracking-widest">
+                    <span className="text-sm font-semibold text-[var(--color-primary)] uppercase tracking-widest">
                       Step {idx + 1}
                     </span>
 
                     {/* --- COLOR GRADED TITLE --- */}
                     <h3
-                      className="text-2xl md:text-4xl font-secondary 
-                                   bg-gradient-to-r from-white via-gray-200 to-orange-500 bg-clip-text text-transparent 
-                                   pb-1"
+                      className="text-2xl md:text-4xl font-bold tracking-tight
+                               bg-gradient-to-r from-[var(--color-text-primary)] via-[var(--color-text-primary)] to-[var(--color-primary)] 
+                               bg-clip-text text-transparent 
+                               pb-1"
                     >
                       {step.title}
                     </h3>
 
-                    <p className="text-base sm:text-lg leading-relaxed text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                    <p className="text-base sm:text-lg leading-relaxed text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors duration-300">
                       {step.text}
                     </p>
                   </div>

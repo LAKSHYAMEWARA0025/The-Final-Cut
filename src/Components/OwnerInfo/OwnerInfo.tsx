@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { SVGProps } from "react";
 
-// --- SVG Icon (to remove external dependency) ---
+// --- SVG Icon (Unchanged) ---
 const YouTubeIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     stroke="currentColor"
@@ -23,38 +23,39 @@ const OwnerInfo: React.FC = () => {
   return (
     <section
       id="about"
-      className="relative overflow-hidden bg-[#000000] py-20 px-6 sm:px-8 font-primary"
+      // Updated: Pure black background and font-sans
+      className="relative overflow-hidden bg-black py-24 px-6 sm:px-8 font-sans border-b border-[var(--color-border)]"
     >
       {/* Animated background gradient blobs */}
       <motion.div
-        className="absolute top-[-100px] left-[-100px] w-96 h-96 bg-orange-900/20 rounded-full blur-3xl opacity-30"
+        className="absolute top-[-100px] left-[-100px] w-96 h-96 bg-[var(--color-primary)] rounded-full blur-3xl opacity-10"
         animate={{ x: [0, 200, 0], y: [0, 150, 0] }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-[-100px] right-[-100px] w-80 h-80 bg-[#1A1A1A]/50 rounded-full blur-3xl opacity-30"
+        className="absolute bottom-[-100px] right-[-100px] w-80 h-80 bg-[var(--color-card-bg)] rounded-full blur-3xl opacity-20"
         animate={{ x: [0, -200, 0], y: [0, -100, 0] }}
         transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
       />
 
       {/* Main Content Container */}
-      <div className="relative z-10 max-w-6xl mx-auto text-center text-white">
+      <div className="relative z-10 max-w-6xl mx-auto text-center text-[var(--color-text-primary)]">
+        
         {/* Title */}
-        {/* <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-12 drop-shadow-md font-secondary">
-          We Did it, <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">You can too</span>
-        </h2> */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl mb-12 drop-shadow-md tracking-tighter font-sans">
-          We Did it,{" "}
-          <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
-            You can too
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-16 drop-shadow-md tracking-tight">
+          We Did it,You can{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]">
+             too!
           </span>
         </h2>
 
-        {/* --- NEW SECTION WITH GREY BACKGROUND --- */}
-        <div className="bg-[#1A1A1A]/70 backdrop-blur-sm rounded-2xl p-8 sm:p-12 mt-16 text-left border border-gray-800">
+        {/* --- CONTENT CONTAINER --- */}
+        {/* Updated: Use var(--color-card-bg) for consistent "slate" look on black */}
+        <div className="bg-[var(--color-card-bg)] backdrop-blur-sm rounded-[var(--radius-lg)] p-8 sm:p-12 mt-16 text-left border border-[var(--color-border)] shadow-xl">
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+            
             {/* Left Side: Text Content */}
-            <div className="lg:w-2/3 space-y-6 text-base sm:text-lg leading-relaxed text-gray-300 font-light">
+            <div className="lg:w-2/3 space-y-6 text-base sm:text-lg leading-relaxed text-[var(--color-text-secondary)] font-normal">
               <p>
                 Today, most early-stage businesses can be built using AI. But
                 what they often lack is distribution—something AI alone cannot
@@ -75,11 +76,11 @@ const OwnerInfo: React.FC = () => {
               <p>
                 After spending years creating content that resonates with
                 millions, I've realized one thing:{" "}
-                <span className="font-semibold tracking-wide bg-gradient-to-r from-[#EFEFEF] to-[#A75A2B] bg-clip-text text-transparent">
+                <span className="font-bold tracking-wide text-[var(--color-text-primary)]">
                   attention is the new currency.
                 </span>
               </p>
-              <p className="italic font-medium mt-8 text-orange-400/80">
+              <p className="italic font-medium mt-8 text-[var(--color-primary-light)]">
                 Every scroll, every click, every view Matters!!
               </p>
             </div>
@@ -87,33 +88,36 @@ const OwnerInfo: React.FC = () => {
             {/* Right Side: Owner Info Card */}
             <div className="lg:w-1/3 w-full flex justify-center mt-8 lg:mt-0">
               <motion.div
-                className="w-full max-w-xs bg-[#121212] rounded-xl p-8 shadow-2xl transition-all duration-500 border border-gray-700/50 hover:border-orange-500/30"
+                className="w-full max-w-xs bg-black rounded-[var(--radius-lg)] p-8 shadow-2xl transition-all duration-500 border border-[var(--color-border)] hover:border-[var(--color-primary)]"
                 initial={{ opacity: 0, y: 50, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 1, ease: "easeOut" }}
                 whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
               >
-                <div className="flex flex-col items-center gap-4">
+                <div className="flex flex-col items-center gap-6">
                   <img
                     src="/owner/owner.jpg"
                     alt={OWNER_NAME}
-                    className="w-32 h-32 rounded-full object-cover border-4 border-orange-500/70 shadow-lg grayscale hover:grayscale-0 transition duration-500"
+                    className="w-32 h-32 rounded-full object-cover border-4 border-[var(--color-primary)] shadow-lg grayscale hover:grayscale-0 transition duration-500"
                   />
-                  <h3 className="text-2xl sm:text-3xl font-bold text-white">
-                    {OWNER_NAME}
-                  </h3>
+                  
+                  <div className="text-center">
+                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
+                      {OWNER_NAME}
+                    </h3>
 
-                  <a
-                    href={OWNER_YOUTUBE}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-orange-400 hover:text-orange-300 transition text-lg font-medium"
-                    aria-label={`Follow ${OWNER_NAME} on YouTube`}
-                  >
-                    <YouTubeIcon className="text-2xl" />
-                    {OWNER_USERNAME}
-                  </a>
+                    <a
+                      href={OWNER_YOUTUBE}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-[var(--color-primary-light)] hover:text-[var(--color-primary)] transition text-lg font-medium"
+                      aria-label={`Follow ${OWNER_NAME} on YouTube`}
+                    >
+                      <YouTubeIcon className="text-xl" />
+                      {OWNER_USERNAME}
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             </div>

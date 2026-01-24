@@ -1,30 +1,72 @@
+/* =========
+   Layout Structure
+   ========= */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  /* Ensure the app takes full height */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+  /* Reset default margins/padding */
+  margin: 0;
+  padding: 0;
+  
+  /* Rule #3: Left align by default for readability. Center only when specific components ask for it. */
+  text-align: left;
+  width: 100%;
 }
 
+/* Global Container - Use this to wrap content inside sections */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl); /* Uses our token for consistent side padding */
+}
+
+/* =========
+   Components
+   ========= */
+
+/* 1. The Card (Rule #4: Consistent Surfaces) */
+.card {
+  background-color: var(--color-card-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg); /* 16px radius */
+  padding: var(--space-2xl);
+  
+  /* smooth entry */
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary-light); /* Subtle highlight on hover */
+  box-shadow: var(--shadow-lg), var(--glow-primary);
+}
+
+/* 2. Logos */
 .logo {
-  height: 6em;
-  padding: 1.5em;
+  height: 3rem; /* Scaled down slightly for professionalism */
+  padding: 0.5rem;
   will-change: filter;
   transition: filter 300ms;
 }
+
+/* Updated glow to match our Indigo Theme */
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 1.5em var(--color-primary));
 }
 
+/* Keep React specific one if you want, or unify it */
+.logo.react:hover {
+  filter: drop-shadow(0 0 1.5em #61dafbaa);
+}
+
+/* Animation Utilities */
 @keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -33,13 +75,16 @@
   }
 }
 
-.card {
-  padding: 2em;
+/* =========
+   Typography Utilities
+   ========= */
+.read-the-docs {
+  color: var(--color-text-tertiary); /* Uses our Slate-400 */
+  font-size: 0.9rem;
+  margin-top: var(--space-lg);
 }
 
-.read-the-docs {
-  color: #888;
-}
-html {
-  scroll-behavior: smooth;
+/* Section Spacing Utility */
+.section-padding {
+  padding: var(--space-4xl) 0;
 }

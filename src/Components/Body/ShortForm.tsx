@@ -2,7 +2,7 @@ import { useRef, useState, useEffect, SVGProps } from "react";
 import { motion } from "framer-motion";
 
 /* -------------------
-   Inline SVG icons
+   Inline SVG icons (Unchanged)
    ------------------- */
 const PlayIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 448 512" fill="currentColor" {...props}>
@@ -31,7 +31,7 @@ const VolumeMuteIcon = (props: SVGProps<SVGSVGElement>) => (
 /* -------------------
    VideoPlayer component
    ------------------- */
-const VideoPlayer = ({ src }: { src: string }) => {
+const VideoPlayer = ({ src, index }: { src: string; index: number }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -81,12 +81,20 @@ const VideoPlayer = ({ src }: { src: string }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, scale: 0.8, y: 50 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.45 }}
-      // Increased styling: slightly darker border, consistent rounded corners
-      className="relative group bg-[#111111] rounded-2xl overflow-hidden shadow-2xl aspect-[9/16] h-[350px] sm:h-[450px] border border-[#222]"
+      transition={{ 
+        duration: 0.6, 
+        delay: index * 0.1,
+        type: "spring",
+        bounce: 0.3
+      }}
+      // Styling Updated: 
+      // 1. border-2 (slightly thicker)
+      // 2. border-[var(--color-primary)] (Solid Orange, permanent)
+      className="relative group bg-[#111111] rounded-[var(--radius-lg)] overflow-hidden shadow-2xl aspect-[9/16] h-[350px] sm:h-[450px] 
+                 border-2 border-[var(--color-primary)] transition-colors duration-300"
     >
       <video
         ref={videoRef}
@@ -153,23 +161,18 @@ const videos = [
 
 const ShortFormSection = () => {
   return (
-    <section className="bg-[#000000] text-white py-20 px-4 sm:px-10 lg:px-16 overflow-hidden">
-      {/* Centered Heading similar to Long Form Section */}
-      {/* <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-16 uppercase tracking-wider font-secondary">
-        Short <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">Form Content</span>
-      </h2> */}
-      {/* Replace the existing <h2> with this: */}
-      <h2 className="text-4xl sm:text-5xl md:text-6xl tracking-tighter text-center mb-16 font-sans">
-        Short{" "}
-        <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
-          Form Content
+    <section className="bg-black text-white py-24 px-4 sm:px-10 lg:px-16 overflow-hidden font-sans border-b border-[var(--color-border)]">
+      
+      <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-center mb-16">
+        Short Form{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]">
+          Content
         </span>
       </h2>
 
-      {/* Centered Grid with larger gaps */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 max-w-7xl mx-auto place-items-center">
         {videos.map((v, i) => (
-          <VideoPlayer key={i} src={v.src} />
+          <VideoPlayer key={i} src={v.src} index={i} />
         ))}
       </div>
     </section>

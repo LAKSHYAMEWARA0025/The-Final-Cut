@@ -1,67 +1,83 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* 🌌 Global Theme Variables */
+
+/* 🌌 Global Theme Variables (Design Tokens) */
 :root {
-  --color-black: #000000;
-  --color-charcoal: #121212;
-  --color-dark-gray: #1a1a1a;
-  --color-steel: #2e2e2e;
-  --color-white: #ffffff;
-  --color-electric-blue: #007bff;
-  --color-accent-blue: #2196f3;
-  --font-primary: 'Roboto', sans-serif;
-  --font-heading:'Bebas Neue', sans-serif;
-  --font-secondary: 'Syne', sans-serif;
+  /* 1. Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* 2. Color System - PROFESSIONAL ORANGE PALETTE */
+  /* Primary Brand Colors */
+  --color-primary: #ff7a2a;       /* Your Original Orange */
+  --color-primary-dark: #e66b1a;  /* Darker Orange for Hover */
+  --color-primary-light: #ffb347; /* Lighter Orange for Accents */
+
+  /* Neutrals (Backgrounds) - Deep Slate (Reduces eye strain compared to pure black) */
+  --color-bg-dark: #0f1419;       /* Dark background */
+  --color-bg-darker: #0a0e14;     /* Darker navigation/footer background */
+  --color-card-bg: #1a1f28;       /* Slightly lighter card background */
+  --color-border: #2a2a2a;        /* Subtle borders */
+
+  /* Text Colors - High Contrast Hierarchy */
+  --color-text-primary: #f5f5f5;    /* Main text */
+  --color-text-secondary: #a0a0a0;  /* Subtitles/descriptions */
+  --color-text-tertiary: #707070;   /* Footers/meta text */
+
+  /* 3. UI Tokens */
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  
+  /* Shadows - Tinted with Orange for cohesion */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 20px rgba(255, 122, 42, 0.15); /* Orange Glow */
 }
 
-/* 🎬 Cinematic Background */
+/* 🎬 Base Styles */
 body {
-  @apply font-primary text-white;
-  background: linear-gradient(
-    135deg,
-    var(--color-black) 0%,
-    var(--color-charcoal) 40%,
-    var(--color-dark-gray) 80%
-  );
+  font-family: var(--font-sans);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-dark);
   min-height: 100vh;
   overflow-x: hidden;
-  transition: background 0.5s ease, color 0.5s ease;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* 💡 Soft Ambient Lighting */
+/* 💡 Refined Ambient Lighting - ORANGE TINT */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: radial-gradient(
-      circle at top left,
-      rgba(33, 150, 243, 0.12),
-      transparent 70%
+  background: 
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(255, 122, 42, 0.08), /* Subtle Orange glow top-left */
+      transparent 50%
     ),
     radial-gradient(
-      circle at bottom right,
-      rgba(0, 123, 255, 0.12),
-      transparent 70%
+      circle at 85% 85%,
+      rgba(255, 179, 71, 0.05), /* Lighter Orange bottom-right */
+      transparent 50%
     );
+  pointer-events: none;
   z-index: -1;
 }
 
-/* ✨ Smooth Animations for UI */
+/* ✨ Smooth Interactions */
 a,
 button {
-  transition: all 0.3s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* 🔄 Logo Slider Animations (for future use) */
+/* 🔄 Animation Utilities */
 @keyframes scroll {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
 }
 
 .logo-slider {
@@ -77,18 +93,16 @@ button {
 }
 
 @keyframes scrollLoop {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
 }
 
 .logo-carousel {
   overflow: hidden;
   white-space: nowrap;
   position: relative;
+  /* Fades edges so logos don't disappear abruptly */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); 
 }
 
 .logo-track {

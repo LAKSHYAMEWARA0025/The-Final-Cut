@@ -1,14 +1,23 @@
 import React, { SVGProps } from 'react';
 
-// --- SVG Icons --- (Unchanged)
+// --- SVG Icons ---
+
+// FIXED: YouTube Icon (Standard clean path)
 const YoutubeIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 576 512" {...props}>
-    <path d="M549.655 124.083c-6.28-23.746-24.835-42.228-48.4-48.423C477.595 59.837 452.548 64 288 64S98.405 59.837 74.745 75.66c-23.565 6.195-42.12 24.677-48.4 48.423C22.32 153.29 20 206 20 256s2.32 102.71 6.345 131.917c6.28 23.746 24.835 42.228 48.4 48.423C98.405 454.163 123.452 448 288 448s189.595 6.163 213.255-9.66c23.565-6.195 42.12 24.677 48.4-48.423C553.68 358.71 556 306 556 256s-2.32-102.71-6.345-131.917zM232 308l128-52-128-52v104z"></path>
+  <svg 
+    stroke="currentColor" 
+    fill="currentColor" 
+    strokeWidth="0" 
+    viewBox="0 0 24 24" 
+    {...props}
+  >
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
   </svg>
 );
+
 const InstagramIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" {...props}>
-      <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.5 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.3 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
+      <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.5 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9 26.3 26.2 58 34.4 93.9 36.2 37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
   </svg>
 );
 const LinkedinIcon = (props: SVGProps<SVGSVGElement>) => (
@@ -26,28 +35,25 @@ const Footer: React.FC = () => {
   const CAL_LINK = "https://cal.com/itsvijaychhary/schedule-a-call";
 
   return (
-    <footer className="relative bg-[#000000] text-white pt-12 pb-10 px-6 sm:px-10 md:px-16 overflow-x-hidden font-primary">
+    <footer className="relative bg-black text-[var(--color-text-primary)] pt-12 pb-10 px-6 sm:px-10 md:px-16 overflow-x-hidden font-sans border-t border-[var(--color-border)]">
+      
       <div 
-        className="relative z-10 flex flex-col items-center justify-center text-center max-w-7xl mx-auto border-b border-gray-800"
+        className="relative z-10 flex flex-col items-center justify-center text-center max-w-7xl mx-auto border-b border-[var(--color-border)]"
       >
         
-        {/* Button Wrapper: Kept purely for vertical spacing (pt-10 pb-20) */}
+        {/* Button Wrapper */}
         <div className="pt-10 pb-20">
           
-          {/* The Button */}
+          {/* CTA Button */}
           <a
             href={CAL_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            // Added: border border-transparent (prevents layout shift)
-            // Added: hover:border-orange-500 (the glowing border color)
-            // Added: hover:shadow-[0_0_20px_rgba...] (the actual glow light)
-            className="relative z-10 inline-block text-white px-10 sm:px-12 py-4 rounded-lg shadow-lg 
-                       text-lg sm:text-xl font-semibold tracking-wide uppercase transition-all duration-300 
-                       bg-[linear-gradient(to_right,#BF4C13,#502D1B_45%,#262626)]
-                       border border-transparent 
-                       hover:border-orange-500 hover:shadow-[0_0_20px_rgba(249,115,22,0.5)]
-                       hover:scale-105"
+            className="relative z-10 inline-block text-white px-10 sm:px-12 py-4 rounded-[var(--radius-lg)] shadow-lg 
+                       text-lg sm:text-xl font-bold tracking-wide uppercase transition-all duration-300 
+                       bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)]
+                       shadow-[0_4px_14px_0_rgba(255,122,42,0.39)] hover:shadow-[0_6px_20px_rgba(255,122,42,0.23)]
+                       transform hover:-translate-y-1"
           >
             Book a Free Discovery Call
           </a>
@@ -57,22 +63,22 @@ const Footer: React.FC = () => {
 
       <div className="relative z-10 pt-10 flex flex-col md:flex-row justify-between items-center md:items-end max-w-7xl mx-auto gap-12">
         <div className="flex flex-col items-center md:items-start gap-2 flex-shrink-0">
-          <span className="text-2xl sm:text-3xl tracking-wider text-white">The Final Cut</span>
+          <span className="text-2xl sm:text-3xl font-bold tracking-tight text-white">The Final Cut</span>
         </div>
 
         <div className="text-center md:text-right w-full md:w-auto">
-          <h4 className="text-lg font-bold text-orange-500 mb-3 uppercase tracking-wider">Connect</h4>
+          <h4 className="text-lg font-bold text-[var(--color-primary)] mb-4 uppercase tracking-wider">Connect</h4>
           
-          <div className="flex gap-5 justify-center md:justify-end text-gray-300">
-            <a href="https://www.youtube.com/@itsvijaychhary/featured" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors" aria-label="YouTube"><YoutubeIcon className="w-7 h-7" /></a>
-            <a href="https://www.instagram.com/itsvijaychhary/" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors" aria-label="Instagram"><InstagramIcon className="w-7 h-7" /></a>
-            <a href="https://www.linkedin.com/in/itsvijaychhary/" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors" aria-label="LinkedIn"><LinkedinIcon className="w-7 h-7" /></a>
-            <a href="https://x.com/_vijaychhary" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors" aria-label="Twitter/X"><TwitterIcon className="w-7 h-7" /></a>
+          <div className="flex gap-6 justify-center md:justify-end text-[var(--color-text-secondary)]">
+            <a href="https://www.youtube.com/@itsvijaychhary/featured" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-primary)] transition-colors transform hover:-translate-y-1 duration-200" aria-label="YouTube"><YoutubeIcon className="w-6 h-6" /></a>
+            <a href="https://www.instagram.com/itsvijaychhary/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-primary)] transition-colors transform hover:-translate-y-1 duration-200" aria-label="Instagram"><InstagramIcon className="w-6 h-6" /></a>
+            <a href="https://www.linkedin.com/in/itsvijaychhary/" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-primary)] transition-colors transform hover:-translate-y-1 duration-200" aria-label="LinkedIn"><LinkedinIcon className="w-6 h-6" /></a>
+            <a href="https://x.com/_vijaychhary" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-primary)] transition-colors transform hover:-translate-y-1 duration-200" aria-label="Twitter/X"><TwitterIcon className="w-6 h-6" /></a>
           </div>
         </div>
       </div>
 
-      <div className="relative z-10 mt-12 pt-6 border-t border-gray-800 text-center text-sm text-gray-500">
+      <div className="relative z-10 mt-12 pt-6 border-t border-[var(--color-border)] text-center text-sm text-[var(--color-text-tertiary)]">
         © {new Date().getFullYear()} The Final Cut. All rights reserved.
       </div>
     </footer>

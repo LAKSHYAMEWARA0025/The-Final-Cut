@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 
+// Icons remain unchanged
 const PlayIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
     <path fill="currentColor" d="M549.655 124.083c-6.28-23.746-24.835-42.228-48.4-48.423C477.595 59.837 452.548 64 288 64S98.405 59.837 74.745 75.66c-23.565 6.195-42.12 24.677-48.4 48.423C22.32 153.29 20 206 20 256s2.32 102.71 6.345 131.917c6.28 23.746 24.835 42.228 48.4 48.423C98.405 454.163 123.452 448 288 448s189.595 6.163 213.255-9.66c23.565 6.195 42.12-24.677 48.4-48.423C553.68 358.71 556 306 556 256s-2.32-102.71-6.345-131.917zM288 368c-57.392 0-104-46.608-104-104s46.608-104 104-104 104 46.608 104 104-46.608 104-104 104zM232 216V300L352 258L232 216z"/>
@@ -19,7 +20,6 @@ const CalendarIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-
 const Hero: React.FC = () => {
   const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
   const statItems = [
@@ -29,62 +29,60 @@ const Hero: React.FC = () => {
   ];
 
   return (
-    <section className="relative min-h-screen w-full bg-black bg-[url('/HomePageBg/hom.jpg')] bg-center bg-cover opacity-0.5 font-sans">
-      <div className="absolute inset-0 z-10 bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,0.5)_30%,rgba(0,0,0,0.85)_80%,rgba(0,0,0,1)_100%)]"></div>
+    <section className="relative min-h-screen w-full font-sans overflow-x-hidden">
+      
+      {/* Background Image & Overlay */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[url('/HomePageBg/hom.jpg')] bg-center bg-cover opacity-60"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-bg-dark)]/40 via-[var(--color-bg-dark)]/80 to-[var(--color-bg-dark)]"></div>
+        {/* Soft Orange Glow Orb */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--color-primary)] opacity-[0.05] blur-[120px] rounded-full"></div>
+      </div>
 
-      {/* Hero content - High top padding */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 pt-48 pb-20 md:pt-64 md:pb-32 gap-6">
+      {/* Hero content */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 pt-48 pb-20 md:pt-64 md:pb-32 gap-8">
         
         {/* Headline */}
+        {/* max-w-7xl allows text to stay on one line.
+            whitespace-nowrap forces it to stay one line on desktop (lg+), 
+            but allows wrapping on mobile/tablet to avoid breakage. */}
         <motion.h1 
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white max-w-5xl tracking-tighter leading-tight" 
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--color-text-primary)] w-full max-w-7xl lg:whitespace-nowrap tracking-tight leading-[1.1]" 
           variants={itemVariants} 
           initial="hidden" 
           animate="visible"
         >
-          We help <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">startups and businesses </span>
-          build their <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">personal brand</span> organically.
+          Build Your Personal Brand <span className="text-[var(--color-primary)]">Organically</span>
         </motion.h1>
 
         {/* Subtext */}
+        {/* max-w-3xl is the perfect width to force this specific sentence into exactly 2 lines */}
         <motion.p 
-          className="text-gray-300 text-base sm:text-lg max-w-6xl w-full" 
+          className="text-[var(--color-text-secondary)] text-lg sm:text-xl max-w-3xl mx-auto w-full leading-relaxed font-medium" 
           variants={itemVariants}
         >
           Transform your knowledge into compelling short-form videos that captivate your audience, generate leads effortlessly, and build a brand they can’t ignore.
         </motion.p>
 
-        {/* CTA with Glow & NEW Doodle Arrow */}
-        <motion.div variants={itemVariants} className="mt-8 relative group">
+        {/* CTA with Glow */}
+        <motion.div variants={itemVariants} className="mt-6 relative group">
           
-          {/* Glowing Border */}
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-orange-600 to-amber-500 rounded-lg blur opacity-0 group-hover:opacity-50 transition duration-500"></div>
+          <div className="absolute -inset-1 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] rounded-[var(--radius-lg)] blur opacity-20 group-hover:opacity-60 transition duration-500"></div>
 
-          {/* Button */}
           <a
             href="https://cal.com/itsvijaychoudhary/schedule-a-call"
             target="_blank"
             rel="noopener noreferrer"
-            // Removed 'shadow-orange-500/30' so it doesn't glow by default
-            className="relative block bg-[linear-gradient(to_right,#262626,#502D1B_45%,#BF4C13)] text-white px-8 sm:px-10 py-4 rounded-lg shadow-xl text-base sm:text-lg font-bold uppercase transition-all duration-300 transform group-hover:scale-105"
+            className="relative block bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] text-white px-10 py-5 rounded-[var(--radius-lg)] shadow-[var(--shadow-lg)] text-lg font-bold uppercase tracking-wide transition-all duration-300 transform group-hover:-translate-y-1"
           >
             Book a Free Discovery Call
           </a>
-
-          {/* NEW Doodle Arrow Positioned Below 
-             - top-[110%] pushes it below the button
-             - right-[-20%] moves it slightly to the right
-             - rotate-12 gives it that natural angle
-          */}
-          {/* <div className="absolute top-[90%] -right-[20%] w-24 h-24 sm:w-32 sm:h-32 pointer-events-none">
-             <MultiStrokeArrowIcon className="w-full h-full text-orange-500 rotate-12 transform scale-x-[-1]" />
-          </div> */}
           
         </motion.div>
 
         {/* Stats */}
         <motion.div 
-          className="flex flex-col md:flex-row gap-4 mt-8 w-full max-w-5xl justify-center" 
+          className="flex flex-col md:flex-row gap-4 mt-12 w-full max-w-5xl justify-center" 
           variants={{ hidden: { opacity: 0.7 }, visible: { transition: { staggerChildren: 0.2 } } }} 
           initial="hidden" 
           animate="visible"
@@ -93,14 +91,18 @@ const Hero: React.FC = () => {
             <motion.div 
               key={idx} 
               variants={itemVariants} 
-              className="flex items-center gap-3 px-5 py-3 rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm text-white text-sm sm:text-base w-full md:w-auto justify-center"
+              className="flex items-center gap-3 px-6 py-4 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-card-bg)]/50 backdrop-blur-md text-[var(--color-text-primary)] text-sm sm:text-base w-full md:w-auto justify-center hover:border-[var(--color-primary)] transition-colors duration-300"
             >
-              <item.icon className="w-5 h-5 text-white/90" />
+              <item.icon className="w-5 h-5 text-[var(--color-primary)]" />
               <span className="font-semibold">{item.text}</span>
             </motion.div>
           ))}
         </motion.div>
       </div>
+
+      {/* NEW: Bottom Fading Div for Seamless Transition to Black */}
+      {/* This creates the gradient fade from gray to black at the bottom of the hero */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none z-20"></div>
     </section>
   );
 };

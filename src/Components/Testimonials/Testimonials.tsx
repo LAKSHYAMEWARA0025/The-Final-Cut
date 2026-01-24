@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useCallback, SVGProps } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// --- SVG Icons ---
+// --- SVG Icons (Unchanged) ---
 const ChevronLeftIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     stroke="currentColor"
@@ -50,7 +50,7 @@ const PauseIcon = (props: SVGProps<SVGSVGElement>) => (
     className="w-5 h-5"
     {...props}
   >
-    <path d="M144 479H48c-26.5 0-48-21.5-48-48V79c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zm304-48V79c0-26.5-21.5-48-48-48h-96c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48z"></path>
+    <path d="M144 479H48c-26.5 0-48-21.5-48-48V79c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zm304-48V79c0-26.5-21.5-48-48-48h-96c-26.5 0-48 21.5-48 48v352c0 26.5-21.5 48-48 48h96c26.5 0 48-21.5 48-48z"></path>
   </svg>
 );
 
@@ -155,7 +155,7 @@ const VideoPlayer = ({ src }: { src: string }) => {
   };
 
   return (
-    <div className="relative w-full md:w-[280px] aspect-[9/16] rounded-xl overflow-hidden shadow-lg shadow-black/50 transition-all duration-300 group">
+    <div className="relative w-full md:w-[280px] aspect-[9/16] rounded-[var(--radius-lg)] overflow-hidden shadow-lg shadow-black/50 transition-all duration-300 group border border-[var(--color-border)]">
       <video
         ref={videoRef}
         key={src}
@@ -166,19 +166,19 @@ const VideoPlayer = ({ src }: { src: string }) => {
         playsInline
         className="w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
 
-      {/* Buttons - fixed visibility */}
+      {/* Buttons - fixed visibility & styling */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-4 z-20">
         <button
           onClick={togglePlay}
-          className="bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition shadow-lg flex items-center justify-center"
+          className="bg-black/60 hover:bg-[var(--color-primary)] text-white p-3 rounded-full transition shadow-lg flex items-center justify-center border border-white/10"
         >
           {isPlaying ? <PauseIcon /> : <PlayIcon />}
         </button>
         <button
           onClick={toggleMute}
-          className="bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition shadow-lg flex items-center justify-center"
+          className="bg-black/60 hover:bg-[var(--color-primary)] text-white p-3 rounded-full transition shadow-lg flex items-center justify-center border border-white/10"
         >
           {isMuted ? <VolumeMuteIcon /> : <VolumeUpIcon />}
         </button>
@@ -205,21 +205,14 @@ const Testimonials = () => {
   return (
     <section
       id="testimonials"
-      className="bg-[#000000] text-white py-24 px-6 sm:px-10 lg:px-20 relative overflow-hidden font-primary"
+      className="bg-black text-[var(--color-text-primary)] py-24 px-6 sm:px-10 lg:px-20 relative overflow-hidden font-sans border-b border-[var(--color-border)]"
     >
-      {/* <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-16 uppercase tracking-wider">
-        What people say{" "}
-        <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
-          when we’re not
-        </span>{" "}
-        in the room
-      </h2> */}
-      <h2 className="text-4xl sm:text-5xl md:text-6xl text-center mb-16 tracking-tighter font-sans">
-        What people say{" "}
-        <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
-          when we’re not
-        </span>{" "}
-        in the room
+      <h2 className="text-5xl sm:text-5xl md:text-5xl font-bold text-center mb-16 tracking-tight">
+        What people say when we’re not {" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]">
+        in the room  
+        </span>
+        
       </h2>
 
       <div className="relative max-w-5xl mx-auto">
@@ -230,18 +223,28 @@ const Testimonials = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="relative p-0.5 rounded-2xl bg-gradient-to-r from-gray-800 via-orange-900/60 to-gray-800"
+            className="relative"
           >
-            <div className="flex flex-col md:flex-row items-center gap-10 bg-[#1A1A1A] p-8 rounded-[15px]">
+            {/* Card Container Updated with bg-[#111111] and text-gray-400 */}
+            <div className="flex flex-col md:flex-row items-center gap-10 p-8 sm:p-12 rounded-[var(--radius-lg)] 
+                          bg-[#111111] border border-[var(--color-border)] shadow-2xl
+                          hover:shadow-[0_0_40px_-10px_rgba(255,122,42,0.3)] hover:border-[var(--color-primary)]/50
+                          transition-all duration-300">
+              
               <VideoPlayer src={testimonials[index].video} />
-              <div className="flex-1 space-y-4 md:space-y-6">
-                <h4 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                  {testimonials[index].name}
-                </h4>
-                <p className="text-sm font-semibold mb-4 uppercase tracking-wider bg-gradient-to-r from-gray-200 to-orange-400 bg-clip-text text-transparent">
-                  {testimonials[index].role}
-                </p>
-                <p className="text-lg sm:text-xl text-gray-300 leading-relaxed italic border-l-4 border-gray-600 pl-4">
+              
+              <div className="flex-1 space-y-4 md:space-y-6 text-center md:text-left">
+                <div>
+                  <h4 className="text-2xl sm:text-3xl font-bold text-white mb-1">
+                    {testimonials[index].name}
+                  </h4>
+                  <p className="text-sm font-semibold uppercase tracking-widest text-gray-500">
+                    {testimonials[index].role}
+                  </p>
+                </div>
+                
+                {/* Applied text-gray-400 here */}
+                <p className="text-lg sm:text-xl text-gray-400 leading-relaxed italic border-l-4 border-[var(--color-primary)] pl-6">
                   "{testimonials[index].review}"
                 </p>
               </div>
@@ -249,10 +252,12 @@ const Testimonials = () => {
           </motion.div>
         </AnimatePresence>
 
-        {/* Left/Right buttons fixed */}
+        {/* Navigation Buttons */}
         <motion.button
           onClick={prevTestimonial}
-          className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full shadow-lg z-30"
+          className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 
+                   bg-[#111111] border border-[var(--color-border)] text-white p-4 rounded-full shadow-xl z-30
+                   hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)] transition-colors"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -261,7 +266,9 @@ const Testimonials = () => {
 
         <motion.button
           onClick={nextTestimonial}
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-3 rounded-full shadow-lg z-30"
+          className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 
+                   bg-[#111111] border border-[var(--color-border)] text-white p-4 rounded-full shadow-xl z-30
+                   hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)] transition-colors"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >

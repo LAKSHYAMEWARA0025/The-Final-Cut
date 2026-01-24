@@ -4,16 +4,15 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const SCROLL_THRESHOLD = 100;
+  const SCROLL_THRESHOLD = 50;
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > SCROLL_THRESHOLD);
     };
-    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [SCROLL_THRESHOLD]);
+  }, []);
 
   const CAL_LINK = "https://cal.com/itsvijaychoudhary/schedule-a-call";
 
@@ -23,61 +22,87 @@ const Header = () => {
     { href: "#testimonials", label: "Testimonials" },
   ];
 
+  // FIXED: Explicitly typed 'e' and 'href' to solve the TS error
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    const element = document.querySelector(href);
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+  
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+    
+    // Close mobile menu if open
+    if (isOpen) setIsOpen(false);
+  };
+
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 
-              overflow-x-hidden overflow-y-hidden
-              ${
-                scrolled
-                  ? "bg-[#121212]/95 backdrop-blur-md shadow-lg"
-                  : "bg-transparent"
-              }`}
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 
+      ${
+        scrolled
+          ? "bg-[var(--color-bg-darker)]/95 backdrop-blur-md shadow-lg border-b border-[var(--color-border)]"
+          : "bg-transparent border-b border-transparent"
+      }`}
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center h-20 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8">
+        <div className="flex justify-between items-center h-20">
+          
+          {/* Logo Area */}
           <a
             href="#top"
-            className="flex items-center space-x-2 sm:space-x-3 transition-opacity duration-300 hover:opacity-80 flex-shrink-0"
+            onClick={(e) => handleSmoothScroll(e, "#top")}
+            className="flex items-center gap-2 transition-opacity duration-300 hover:opacity-80 flex-shrink-0"
           >
             <img
               src="/logo/Whitelogo.png"
               alt="Logo"
-              className="w-64 md:w-40 h-auto drop-shadow-lg"
-              onError={(e) => { e.currentTarget.src = '/logo/Whitelogo.png'; }}
+              className="w-36 md:w-44 h-auto object-contain drop-shadow-md"
+              onError={(e) => {
+                e.currentTarget.src = "/logo/Whitelogo.png";
+              }}
             />
           </a>
 
-          <nav className="hidden md:flex space-x-10 text-lg font-medium">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-10">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-white hover:text-[#BF4C13] transition-colors duration-300"
+                // FIXED: Passing 'e' correctly here
+                onClick={(e) => handleSmoothScroll(e, item.href)}
+                className="text-[var(--color-text-secondary)] font-medium text-[15px] hover:text-[var(--color-primary)] transition-colors duration-200"
               >
                 {item.label}
               </a>
             ))}
-          </nav>
 
-          <div className="hidden md:block">
+            {/* Primary CTA */}
             <a
               href={CAL_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className={`px-6 py-2.5 rounded-md text-lg font-semibold transition-all duration-300 border ${
-                scrolled
-                  ? "border-[#BF4C13]/75 text-white hover:bg-[#502D1B]/85 hover:border-[#502D1B] hover:text-white"
-                  : "border-white text-white hover:bg-[#502D1B]/85 hover:border-[#502D1B]"
-              }`}
+              className="ml-2 px-6 py-2.5 rounded-[var(--radius-md)] text-sm font-bold text-white 
+                       bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)]
+                       shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-glow)]
+                       transform hover:-translate-y-0.5 transition-all duration-200"
             >
               Book a Call
             </a>
-          </div>
+          </nav>
 
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="focus:outline-none text-white"
+              className="p-2 rounded-md text-[var(--color-text-secondary)] hover:text-white hover:bg-[var(--color-border)] transition-colors focus:outline-none"
               aria-label="Toggle navigation menu"
             >
               <svg
@@ -85,7 +110,6 @@ const Header = () => {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 {isOpen ? (
                   <path
@@ -108,40 +132,36 @@ const Header = () => {
         </div>
       </div>
 
-      {isOpen && (
-        <div
-          className="md:hidden px-4 sm:px-6 lg:px-8 pb-5 transition-all bg-[#000000] shadow-xl"
-        >
-          <nav className="flex flex-col space-y-4 text-base font-medium pt-4 border-t border-gray-700">
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="text-white hover:text-[#BF4C13] transition-colors duration-300 block px-4 py-2"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.label}
-              </a>
-            ))}
+      {/* Mobile Menu Dropdown */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <div className="px-4 pt-2 pb-6 space-y-2 bg-[var(--color-bg-darker)] border-b border-[var(--color-border)] shadow-xl">
+          {navItems.map((item) => (
             <a
-              href={CAL_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`mt-2 px-5 py-2 rounded-md border w-fit transition-all duration-300 font-semibold ${
-                scrolled
-                  ? "border-[#BF4C13]/75 text-white hover:bg-[#502D1B]/85 hover:border-[#502D1B]"
-                  : "border-white text-white hover:bg-[#502D1B]/85 hover:border-[#502D1B]"
-              }`}
-              onClick={() => setIsOpen(false)}
+              key={item.href}
+              href={item.href}
+              onClick={(e) => handleSmoothScroll(e, item.href)}
+              className="block px-3 py-3 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-white hover:bg-[var(--color-card-bg)] transition-colors"
             >
-              Book a Call
+              {item.label}
             </a>
-          </nav>
+          ))}
+          <a
+            href={CAL_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block mt-4 text-center px-4 py-3 rounded-[var(--radius-md)] text-base font-bold text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] transition-colors shadow-md"
+            onClick={() => setIsOpen(false)}
+          >
+            Book a Call
+          </a>
         </div>
-      )}
+      </div>
     </header>
   );
 };
 
 export default Header;
-

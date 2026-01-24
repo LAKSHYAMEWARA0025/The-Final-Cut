@@ -113,45 +113,50 @@ interface CreatorCardProps {
 const CreatorCard: React.FC<CreatorCardProps> = ({ creator }) => {
   return (
     <div className="group relative flex-shrink-0 transition-transform duration-500 hover:scale-[1.05]">
+      
+      {/* Outer Glowing Border (Visible on Hover) */}
       <div
-        className={`absolute -inset-1 rounded-full bg-gradient-to-r from-orange-600 to-amber-500 
-                   opacity-0 transition-all duration-500 ease-out 
-                   group-hover:opacity-80 group-hover:blur-md group-hover:scale-110`}
+        className={`absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)] 
+                    opacity-0 transition-all duration-500 ease-out 
+                    group-hover:opacity-80 group-hover:blur-md group-hover:scale-110`}
       />
 
-      {/* CHANGED: Reduced size from 220px to 180px */}
+      {/* Main Image Container */}
       <div
         className={`relative h-[180px] w-[180px] overflow-hidden 
-                   rounded-full shadow-xl cursor-pointer bg-gray-900`}
+                    rounded-full shadow-xl cursor-pointer bg-[var(--color-card-bg)] border border-[var(--color-border)]`}
       >
         {creator.image ? (
-          <div className="w-full h-full rounded-full overflow-hidden bg-gray-900 relative z-10">
+          <>
+            {/* The Image */}
             <img
               src={creator.image}
               alt={creator.name}
-              className="w-full h-full object-cover object-top transition-opacity duration-500 group-hover:opacity-30"
+              className="w-full h-full object-cover object-top transition-all duration-500 group-hover:opacity-40 group-hover:scale-110"
               onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                // Updated placeholder size to match new dimensions
                 e.currentTarget.src =
                   "https://placehold.co/180x180/1A1A1A/FFFFFF?text=Photo";
               }}
             />
-          </div>
+            
+            {/* Grayish Overlay Layer (Visible on Hover) */}
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+          </>
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gray-900 text-gray-300 text-5xl font-bold">
+          <div className="w-full h-full flex items-center justify-center bg-gray-900 text-gray-500 text-5xl font-bold">
             {creator.name.charAt(0)}
           </div>
         )}
 
+        {/* Text Content (Slides up on Hover) */}
         <div
-          className={`absolute inset-0 bg-black/60 backdrop-blur-sm 
-                     flex flex-col items-center justify-end p-6 text-center
-                     opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full pb-6 z-20`}
+          className={`absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-2
+                      translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500`}
         >
-          <h3 className="text-lg font-extrabold text-white mb-1 leading-snug">
+          <h3 className="text-lg font-bold text-white mb-1 leading-tight drop-shadow-md">
             {creator.name}
           </h3>
-          <p className="text-sm font-semibold text-gray-300 mb-2">
+          <p className="text-sm font-semibold text-[var(--color-primary-light)]">
             {creator.followers}
           </p>
         </div>
@@ -162,7 +167,7 @@ const CreatorCard: React.FC<CreatorCardProps> = ({ creator }) => {
 
 export default function CreatorsSection(): React.JSX.Element {
   return (
-    <section className="bg-[#000000] text-white py-24 overflow-hidden relative">
+    <section className="bg-black text-[var(--color-text-primary)] py-24 overflow-hidden relative font-sans border-t border-[var(--color-border)]">
       <style>
         {`
           @keyframes scroll {
@@ -172,27 +177,33 @@ export default function CreatorsSection(): React.JSX.Element {
           .animate-scroll {
             animation: scroll 68s linear infinite; 
           }
+          /* Pause on hover for better UX */
+          .animate-scroll:hover {
+            animation-play-state: paused;
+          }
         `}
       </style>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
-        <h2 className="text-4xl sm:text-5xl text-center mb-16 tracking-tighter font-sans">
-          <span className="bg-gradient-to-r from-[#E0E0E0] to-[#D94E13] bg-clip-text text-transparent">
+        <h2 className="text-4xl sm:text-5xl text-center mb-16 tracking-tight font-bold">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]">
             Creators
           </span>{" "}
           We’ve Worked With
         </h2>
       </div>
 
-      <div className="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_64px,_black_calc(100%-64px),transparent_100%)]">
-        <div className="flex gap-8 py-8 animate-scroll w-max">
+      <div className="w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_10%,_black_90%,transparent_100%)]">
+        <div className="flex gap-12 py-8 animate-scroll w-max px-4">
           {infiniteCreators.map((creator: Creator, idx: number) => (
             <CreatorCard key={idx} creator={creator} />
           ))}
         </div>
       </div>
 
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-[#000000]/90 via-transparent to-[#000000]/90" />
+      {/* Side Gradients for Smooth Fade */}
+      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black to-transparent pointer-events-none z-10" />
+      <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black to-transparent pointer-events-none z-10" />
     </section>
   );
 }

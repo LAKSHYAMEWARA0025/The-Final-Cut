@@ -21,7 +21,7 @@ const faqs = [
   },
 ];
 
-const collapseVariants:Variants = {
+const collapseVariants: Variants = {
   open: {
     height: "auto",
     opacity: 1,
@@ -46,55 +46,68 @@ const FAQItem = ({ question, answer }: { question: string; answer: string }) => 
   return (
     <motion.div
       layout
-      className={`p-0.5 rounded-xl mb-4 transition-all duration-500 ${open ? 'bg-gradient-to-r from-orange-900/80 via-orange-800/40 to-gray-800' : 'bg-[#1A1A1A]'}`}
+      // Updated Styling:
+      // 1. bg-[#111111] (The specific gray requested)
+      // 2. border-[var(--color-border)] default, changing to Orange when open
+      className={`rounded-[var(--radius-lg)] mb-4 border transition-all duration-300 overflow-hidden
+        ${
+          open
+            ? "bg-[#111111] border-[var(--color-primary)] shadow-[0_0_20px_-5px_rgba(255,122,42,0.2)]"
+            : "bg-[#111111] border-[var(--color-border)] hover:border-[var(--color-primary)]/50"
+        }`}
     >
-      <div className={`rounded-[11px] ${open ? 'bg-[#121212]' : 'bg-[#1A1A1A]'} transition-colors duration-300`}>
-        <div
-          onClick={() => setOpen(!open)}
-          className="flex justify-between items-center p-5 sm:p-6 cursor-pointer"
+      <div
+        onClick={() => setOpen(!open)}
+        className="flex justify-between items-center p-6 cursor-pointer select-none"
+      >
+        <h4 className="text-base sm:text-lg font-semibold text-[var(--color-text-primary)] max-w-[90%]">
+          {question}
+        </h4>
+        <motion.div
+          className="text-2xl font-bold text-[var(--color-primary)] flex-shrink-0"
+          animate={{ rotate: open ? 135 : 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          aria-hidden="true"
         >
-          <h4 className="text-base sm:text-lg font-semibold text-white max-w-[90%]">
-            {question}
-          </h4>
-          <motion.div
-            className="text-2xl font-bold text-orange-500 flex-shrink-0"
-            animate={{ rotate: open ? 135 : 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-            aria-hidden="true"
-          >
-            +
-          </motion.div>
-        </div>
-
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              key="content"
-              initial="collapsed"
-              animate="open"
-              exit="collapsed"
-              variants={collapseVariants}
-              className="overflow-hidden px-5 sm:px-6"
-            >
-              <p className="text-sm sm:text-base text-gray-400 pb-5 leading-relaxed border-t border-gray-800 pt-4">
-                {answer}
-              </p>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          +
+        </motion.div>
       </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="content"
+            initial="collapsed"
+            animate="open"
+            exit="collapsed"
+            variants={collapseVariants}
+            className="overflow-hidden px-6"
+          >
+            {/* Answer Text: text-gray-400 as requested */}
+            <p className="text-sm sm:text-base text-gray-400 pb-6 leading-relaxed border-t border-[var(--color-border)] pt-4">
+              {answer}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
 
 const Questions = () => {
   return (
-    <section className="bg-[#000000] py-20 px-4 sm:px-6 lg:px-8 font-primary">
+    <section className="bg-black py-24 px-4 sm:px-6 lg:px-8 font-sans border-b border-[var(--color-border)]">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl sm:text-5xl text-white text-center mb-4">
-          Frequently Asked <span className="bg-gradient-to-r from-gray-200 to-orange-500 bg-clip-text text-transparent">Questions</span>
+        
+        {/* Updated Heading Typography */}
+        <h2 className="text-4xl sm:text-5xl font-bold text-[var(--color-text-primary)] text-center mb-4 tracking-tight">
+          Frequently Asked{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]">
+            Questions
+          </span>
         </h2>
-        <p className="text-center text-base sm:text-lg text-gray-400 mb-12">
+        
+        <p className="text-center text-base sm:text-lg text-[var(--color-text-secondary)] mb-12 max-w-2xl mx-auto">
           Get answers to the most common questions about our services.
         </p>
 
