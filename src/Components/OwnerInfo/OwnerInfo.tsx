@@ -2,16 +2,16 @@ import React from "react";
 import { motion } from "framer-motion";
 import { SVGProps } from "react";
 
-// --- SVG Icon (Unchanged) ---
-const YouTubeIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    stroke="currentColor"
-    fill="currentColor"
-    strokeWidth="0"
-    viewBox="0 0 576 512"
+// --- SVG Icons ---
+
+// Standard YouTube Play Icon
+const YouTubeLogo = (props: SVGProps<SVGSVGElement>) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="currentColor" 
     {...props}
   >
-    <path d="M549.655 124.083c-6.281-23.65-24.787-42.118-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.479-41.992 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.292 23.65 24.787 42.118 48.284 48.597C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.479 41.992-24.947 48.284-48.597 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.208z"></path>
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
   </svg>
 );
 
@@ -23,7 +23,6 @@ const OwnerInfo: React.FC = () => {
   return (
     <section
       id="about"
-      // Updated: Pure black background and font-sans
       className="relative overflow-hidden bg-black py-24 px-6 sm:px-8 font-sans border-b border-[var(--color-border)]"
     >
       {/* Animated background gradient blobs */}
@@ -43,14 +42,13 @@ const OwnerInfo: React.FC = () => {
         
         {/* Title */}
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-16 drop-shadow-md tracking-tight">
-          We Did it,You can{" "}
+          We Did it, You can{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]">
              too!
           </span>
         </h2>
 
         {/* --- CONTENT CONTAINER --- */}
-        {/* Updated: Use var(--color-card-bg) for consistent "slate" look on black */}
         <div className="bg-[var(--color-card-bg)] backdrop-blur-sm rounded-[var(--radius-lg)] p-8 sm:p-12 mt-16 text-left border border-[var(--color-border)] shadow-xl">
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
             
@@ -103,18 +101,24 @@ const OwnerInfo: React.FC = () => {
                   />
                   
                   <div className="text-center">
-                    <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                      {OWNER_NAME}
-                    </h3>
+                    
+                    {/* Name Section */}
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                        {OWNER_NAME}
+                      </h3>
+                    </div>
 
+                    {/* Username Link Section */}
                     <a
                       href={OWNER_YOUTUBE}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-[var(--color-primary-light)] hover:text-[var(--color-primary)] transition text-lg font-medium"
+                      className="inline-flex items-center justify-center gap-2 text-[var(--color-primary-light)] hover:text-[var(--color-primary)] transition text-lg font-medium"
                       aria-label={`Follow ${OWNER_NAME} on YouTube`}
                     >
-                      <YouTubeIcon className="text-xl" />
+                      {/* YouTube Logo in Red to match branding */}
+                      <YouTubeLogo className="w-6 h-6 text-orange-600" />
                       {OWNER_USERNAME}
                     </a>
                   </div>

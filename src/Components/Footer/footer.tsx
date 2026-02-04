@@ -38,7 +38,8 @@ const Footer: React.FC = () => {
     <footer className="relative bg-black text-[var(--color-text-primary)] pt-12 pb-10 px-6 sm:px-10 md:px-16 overflow-x-hidden font-sans border-t border-[var(--color-border)]">
       
       <div 
-        className="relative z-10 flex flex-col items-center justify-center text-center max-w-7xl mx-auto border-b border-[var(--color-border)]"
+        // REMOVED: border-b border-[var(--color-border)]
+        className="relative z-10 flex flex-col items-center justify-center text-center max-w-7xl mx-auto"
       >
         
         {/* Button Wrapper */}

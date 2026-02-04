@@ -1,6 +1,7 @@
 import LongFormSection from "./Components/Body/LongForm"
 import ShortFormSection from "./Components/Body/ShortForm"
 import Questions from "./Components/Body2/questions"
+import ContentFlywheel from "./Components/Content/ContentFlyWheel"
 import Creators from "./Components/Creators/Creators"
 import Footer from "./Components/Footer/footer"
 import Header from "./Components/Header/header"
@@ -19,6 +20,7 @@ function App() {
       <Hero/>
       <TrustedBy/>
       <SecretSauce/>
+      <ContentFlywheel/>
       <ShortFormSection/>
       <LongFormSection/>
       <OwnerInfo/>

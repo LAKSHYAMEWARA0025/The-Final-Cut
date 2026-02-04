@@ -22,13 +22,13 @@ const Header = () => {
     { href: "#testimonials", label: "Testimonials" },
   ];
 
-  // FIXED: Explicitly typed 'e' and 'href' to solve the TS error
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     
     const element = document.querySelector(href);
     if (element) {
-      const headerOffset = 80;
+      // CHANGED: Reduced offset from 80 to 64 to match new header height
+      const headerOffset = 64;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - headerOffset;
   
@@ -38,7 +38,6 @@ const Header = () => {
       });
     }
     
-    // Close mobile menu if open
     if (isOpen) setIsOpen(false);
   };
 
@@ -52,7 +51,9 @@ const Header = () => {
       }`}
     >
       <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8">
-        <div className="flex justify-between items-center h-20">
+        
+        {/* CHANGED: Reduced height from h-20 to h-16 */}
+        <div className="flex justify-between items-center h-16">
           
           {/* Logo Area */}
           <a
@@ -63,7 +64,8 @@ const Header = () => {
             <img
               src="/logo/Whitelogo.png"
               alt="Logo"
-              className="w-36 md:w-44 h-auto object-contain drop-shadow-md"
+              // CHANGED: Reduced logo size (w-28 md:w-32) to fit smaller header
+              className="w-28 md:w-32 h-auto object-contain drop-shadow-md"
               onError={(e) => {
                 e.currentTarget.src = "/logo/Whitelogo.png";
               }}
@@ -71,14 +73,13 @@ const Header = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                // FIXED: Passing 'e' correctly here
                 onClick={(e) => handleSmoothScroll(e, item.href)}
-                className="text-[var(--color-text-secondary)] font-medium text-[15px] hover:text-[var(--color-primary)] transition-colors duration-200"
+                className="text-[var(--color-text-secondary)] font-medium text-sm hover:text-[var(--color-primary)] transition-colors duration-200"
               >
                 {item.label}
               </a>
@@ -89,10 +90,11 @@ const Header = () => {
               href={CAL_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-2 px-6 py-2.5 rounded-[var(--radius-md)] text-sm font-bold text-white 
-                       bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)]
-                       shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-glow)]
-                       transform hover:-translate-y-0.5 transition-all duration-200"
+              // CHANGED: Slightly reduced padding (py-2)
+              className="ml-2 px-5 py-2 rounded-[var(--radius-md)] text-sm font-bold text-white 
+                        bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)]
+                        shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-glow)]
+                        transform hover:-translate-y-0.5 transition-all duration-200"
             >
               Book a Call
             </a>
@@ -102,11 +104,11 @@ const Header = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-md text-[var(--color-text-secondary)] hover:text-white hover:bg-[var(--color-border)] transition-colors focus:outline-none"
+              className="p-1.5 rounded-md text-[var(--color-text-secondary)] hover:text-white hover:bg-[var(--color-border)] transition-colors focus:outline-none"
               aria-label="Toggle navigation menu"
             >
               <svg
-                className="w-7 h-7"
+                className="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -144,7 +146,7 @@ const Header = () => {
               key={item.href}
               href={item.href}
               onClick={(e) => handleSmoothScroll(e, item.href)}
-              className="block px-3 py-3 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-white hover:bg-[var(--color-card-bg)] transition-colors"
+              className="block px-3 py-3 rounded-md text-sm font-medium text-[var(--color-text-secondary)] hover:text-white hover:bg-[var(--color-card-bg)] transition-colors"
             >
               {item.label}
             </a>
@@ -153,7 +155,7 @@ const Header = () => {
             href={CAL_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="block mt-4 text-center px-4 py-3 rounded-[var(--radius-md)] text-base font-bold text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] transition-colors shadow-md"
+            className="block mt-4 text-center px-4 py-2.5 rounded-[var(--radius-md)] text-sm font-bold text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] transition-colors shadow-md"
             onClick={() => setIsOpen(false)}
           >
             Book a Call

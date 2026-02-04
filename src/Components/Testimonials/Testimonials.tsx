@@ -130,15 +130,27 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const VideoPlayer = ({ src }: { src: string }) => {
+// PROPS updated: accepts global mute state and toggle handler
+const VideoPlayer = ({ src, isMuted, toggleMute }: { src: string; isMuted: boolean; toggleMute: () => void }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
+
+  // When 'isMuted' prop changes, update the actual video element
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted]);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (video) video.play().catch(() => {});
-    return () => video?.pause();
+    if (video) {
+        // Ensure mute state is correct on load/mount
+        video.muted = isMuted;
+        video.play().catch(() => {});
+    }
+    // No pause on cleanup to allow smooth transitions if needed, 
+    // but typically cleanup is fine. keeping it simple.
   }, [src]);
 
   const togglePlay = () => {
@@ -146,12 +158,6 @@ const VideoPlayer = ({ src }: { src: string }) => {
     if (isPlaying) videoRef.current.pause();
     else videoRef.current.play();
     setIsPlaying(!isPlaying);
-  };
-
-  const toggleMute = () => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = !isMuted;
-    setIsMuted(!isMuted);
   };
 
   return (
@@ -162,13 +168,13 @@ const VideoPlayer = ({ src }: { src: string }) => {
         src={src}
         autoPlay
         loop
-        muted={isMuted}
+        muted={isMuted} // Controlled by parent
         playsInline
         className="w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
 
-      {/* Buttons - fixed visibility & styling */}
+      {/* Buttons */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-4 z-20">
         <button
           onClick={togglePlay}
@@ -176,6 +182,7 @@ const VideoPlayer = ({ src }: { src: string }) => {
         >
           {isPlaying ? <PauseIcon /> : <PlayIcon />}
         </button>
+        {/* Mute button now calls the Parent's toggle function */}
         <button
           onClick={toggleMute}
           className="bg-black/60 hover:bg-[var(--color-primary)] text-white p-3 rounded-full transition shadow-lg flex items-center justify-center border border-white/10"
@@ -189,6 +196,8 @@ const VideoPlayer = ({ src }: { src: string }) => {
 
 const Testimonials = () => {
   const [index, setIndex] = useState(0);
+  // Global mute state for all testimonials
+  const [isGlobalMuted, setIsGlobalMuted] = useState(true);
 
   const nextTestimonial = useCallback(
     () => setIndex((prev) => (prev + 1) % testimonials.length),
@@ -212,7 +221,6 @@ const Testimonials = () => {
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]">
         in the room  
         </span>
-        
       </h2>
 
       <div className="relative max-w-5xl mx-auto">
@@ -225,13 +233,17 @@ const Testimonials = () => {
             transition={{ duration: 0.6, ease: "easeInOut" }}
             className="relative"
           >
-            {/* Card Container Updated with bg-[#111111] and text-gray-400 */}
             <div className="flex flex-col md:flex-row items-center gap-10 p-8 sm:p-12 rounded-[var(--radius-lg)] 
-                          bg-[#111111] border border-[var(--color-border)] shadow-2xl
-                          hover:shadow-[0_0_40px_-10px_rgba(255,122,42,0.3)] hover:border-[var(--color-primary)]/50
-                          transition-all duration-300">
+                           bg-[#111111] border border-[var(--color-border)] shadow-2xl
+                           hover:shadow-[0_0_40px_-10px_rgba(255,122,42,0.3)] hover:border-[var(--color-primary)]/50
+                           transition-all duration-300">
               
-              <VideoPlayer src={testimonials[index].video} />
+              {/* Pass global mute state and toggle function down */}
+              <VideoPlayer 
+                src={testimonials[index].video} 
+                isMuted={isGlobalMuted} 
+                toggleMute={() => setIsGlobalMuted(!isGlobalMuted)} 
+              />
               
               <div className="flex-1 space-y-4 md:space-y-6 text-center md:text-left">
                 <div>
@@ -243,7 +255,6 @@ const Testimonials = () => {
                   </p>
                 </div>
                 
-                {/* Applied text-gray-400 here */}
                 <p className="text-lg sm:text-xl text-gray-400 leading-relaxed italic border-l-4 border-[var(--color-primary)] pl-6">
                   "{testimonials[index].review}"
                 </p>
@@ -256,8 +267,8 @@ const Testimonials = () => {
         <motion.button
           onClick={prevTestimonial}
           className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 
-                   bg-[#111111] border border-[var(--color-border)] text-white p-4 rounded-full shadow-xl z-30
-                   hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)] transition-colors"
+                     bg-[#111111] border border-[var(--color-border)] text-white p-4 rounded-full shadow-xl z-30
+                     hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)] transition-colors"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -267,8 +278,8 @@ const Testimonials = () => {
         <motion.button
           onClick={nextTestimonial}
           className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 
-                   bg-[#111111] border border-[var(--color-border)] text-white p-4 rounded-full shadow-xl z-30
-                   hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)] transition-colors"
+                     bg-[#111111] border border-[var(--color-border)] text-white p-4 rounded-full shadow-xl z-30
+                     hover:bg-[var(--color-primary)] hover:border-[var(--color-primary)] transition-colors"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >

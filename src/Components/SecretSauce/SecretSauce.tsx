@@ -1,5 +1,5 @@
-import React from "react";
-import { motion, Variants } from "framer-motion";
+import React, { useRef } from "react";
+import { useScroll, useTransform, motion, MotionValue } from "framer-motion";
 
 interface Step {
   title: string;
@@ -10,121 +10,145 @@ interface Step {
 const steps: Step[] = [
   {
     title: "Brand Ideation and Strategy",
-    text: "In a single powerful session, we’ll map your entire content ecosystem—shaping your unique angle, refining your style, designing impactful hooks, and building a strategy that adds the wow factor. Within a week, you’ll have a clear 1–3 month brand strategy ready. By week two, your brand assets will be finalized and content production will be underway.",
+    text: "In a single, focused session, we’ll take a holistic look at your content ecosystem to clarify your unique angle, refine your voice, design compelling hooks, and build a strategy that truly elevates your brand. Within one week, you’ll have a clear and confident 1–3 month brand strategy in place. By week two, your brand assets will be finalized and your content production will be fully underway.",
     img: "/SecretSauce/bb.png",
   },
   {
     title: "Filming and Editing",
-    text: "Once we receive all the raw files, we’ll kick off the editing process. Throughout the shoot, we’ll guide and support you at every step. After editing, we’ll create the copies to go along with the content—and just like that, your content will be ready to go live.",
+    text: "Once we receive your raw files, we’ll begin the editing process right away. During the shoot, we’ll be there to guide and support you every step of the way. After editing is complete, we’ll craft thoughtful copy to accompany your content, so everything is cohesive and on brand. From there, your content will be fully prepared and ready to go live.",
     img: "/SecretSauce/FilmingEditing.jpg",
   },
   {
     title: "Watch your brand scale",
-    text: "Once your content goes live, it will become a massive support system for your business. Think of it like the iceberg beneath the surface—driving leads and sales that aren’t immediately visible. Beyond that, whether it’s hiring, sharing your ideas, closing high-ticket clients, or generating inbound leads—everything flows through one powerful engine: your personal brand.",
+    text: "Once your content is live, it begins working as a powerful support system for your business. Much like an iceberg beneath the surface, it steadily drives awareness, trust, and opportunities that aren’t always immediately visible. From hiring and sharing your ideas to attracting high-ticket clients and generating inbound leads, everything ultimately flows through one central engine: your personal brand.",
     img: "/SecretSauce/WatchYourBrandScale.jpg",
   },
 ];
 
-// --- Animation Variants ---
-const cardVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 50,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut",
-    },
-  },
+// --- Individual Card Component ---
+const Card = ({
+  i,
+  step,
+  progress,
+  range,
+  targetScale,
+}: {
+  i: number;
+  step: Step;
+  progress: MotionValue<number>;
+  range: [number, number];
+  targetScale: number;
+}) => {
+  const container = useRef(null);
+  
+  // Create transforms based on the parent scroll progress
+  // When this card is active (within its range), it stays at scale 1.
+  // As the user scrolls past it (next card coming), it scales down to targetScale.
+  const scale = useTransform(progress, range, [1, targetScale]);
+  
+  return (
+    <div
+      ref={container}
+      // Sticky container: Ensures the card stays in view while the next one scrolls up
+      className="h-screen flex items-center justify-center sticky top-0"
+    >
+      <motion.div
+        style={{
+          scale,
+          // Stagger the top position slightly so they stack nicely
+          top: `calc(5vh + ${i * 25}px)`, 
+        }}
+        className="relative flex flex-col items-center gap-8 md:gap-12 p-6 md:p-10 rounded-[var(--radius-lg)] 
+                   border border-[var(--color-border)] bg-[var(--color-card-bg)] 
+                   w-full max-w-5xl origin-top shadow-2xl"
+      >
+        {/* Inner Layout (Same as before) */}
+        <div
+          className={`flex flex-col md:flex-row items-center gap-10 w-full ${
+            i % 2 !== 0 ? "md:flex-row-reverse" : ""
+          }`}
+        >
+          {/* Image Side */}
+          <div className="w-full md:w-1/2 overflow-hidden rounded-[var(--radius-md)]">
+            <div className="relative h-64 sm:h-80 w-full overflow-hidden rounded-[var(--radius-md)]">
+              <img
+                src={step.img}
+                alt={step.title}
+                className="w-full h-full object-cover rounded-[var(--radius-md)]"
+                onError={(e) => {
+                  e.currentTarget.src = `https://placehold.co/600x400/222/FFF?text=Step+${i + 1}`;
+                }}
+              />
+              <div className="absolute inset-0 bg-black/10" />
+            </div>
+          </div>
+
+          {/* Text Side */}
+          <div className="w-full md:w-1/2 space-y-4">
+            <span className="text-sm font-semibold text-[var(--color-primary)] uppercase tracking-widest">
+              Step {i + 1}
+            </span>
+
+            {/* Title with Gradient */}
+            <h3 className="text-2xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-[var(--color-text-primary)] via-[var(--color-text-primary)] to-[var(--color-primary)] bg-clip-text text-transparent pb-1">
+              {step.title}
+            </h3>
+
+            <p className="text-base sm:text-lg leading-relaxed text-[var(--color-text-secondary)]">
+              {step.text}
+            </p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
 };
 
 const SecretSauce: React.FC = () => {
+  const container = useRef(null);
+  
+  // Track scroll progress of the entire section
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ["start start", "end end"],
+  });
+
   return (
     <section
       id="services"
-      // CHANGED: Fixed background to pure black as requested
-      className="relative bg-black text-[var(--color-text-primary)] py-24 overflow-hidden font-sans"
+      className="bg-black text-[var(--color-text-primary)] font-sans"
     >
-      <div className="max-w-7xl mx-auto px-6">
-        
-        {/* Title */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-center mb-20">
+      {/* Title Section (Static before scrolling starts) */}
+      <div className="pt-24 pb-10 px-6 max-w-7xl mx-auto">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-center">
           What’s the{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]">
             Secret?
           </span>
         </h2>
+      </div>
 
-        <div className="flex flex-col gap-16">
-          {steps.map((step, idx) => (
-            <motion.div
-              key={idx}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={cardVariants}
-              className="relative group"
-            >
-              {/* --- CARD CONTAINER --- */}
-              {/* Maintained the grey card background (var(--color-card-bg)) for contrast against the black section */}
-              <div
-                className="relative flex flex-col items-center gap-8 md:gap-12 p-6 md:p-10 rounded-[var(--radius-lg)] 
-                         border border-[var(--color-border)] bg-[var(--color-card-bg)] 
-                         transition-all duration-500 
-                         group-hover:border-[var(--color-primary)] 
-                         group-hover:shadow-[0_0_40px_-10px_rgba(255,122,42,0.3)]"
-              >
-                {/* Inner Layout */}
-                <div
-                  className={`flex flex-col md:flex-row items-center gap-10 w-full ${
-                    idx % 2 !== 0 ? "md:flex-row-reverse" : ""
-                  }`}
-                >
-                  {/* Image Side */}
-                  <div className="w-full md:w-1/2 overflow-hidden rounded-[var(--radius-md)]">
-                    <div className="relative h-64 sm:h-80 w-full overflow-hidden rounded-[var(--radius-md)]">
-                      <img
-                        src={step.img}
-                        alt={step.title}
-                        className="w-full h-full object-cover rounded-[var(--radius-md)] transition-transform duration-700 group-hover:scale-105 opacity-90 group-hover:opacity-100"
-                        onError={(e) => {
-                          e.currentTarget.src = `https://placehold.co/600x400/222/FFF?text=Step+${
-                            idx + 1
-                          }`;
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
-                    </div>
-                  </div>
-
-                  {/* Text Side */}
-                  <div className="w-full md:w-1/2 space-y-4">
-                    <span className="text-sm font-semibold text-[var(--color-primary)] uppercase tracking-widest">
-                      Step {idx + 1}
-                    </span>
-
-                    {/* --- COLOR GRADED TITLE --- */}
-                    <h3
-                      className="text-2xl md:text-4xl font-bold tracking-tight
-                               bg-gradient-to-r from-[var(--color-text-primary)] via-[var(--color-text-primary)] to-[var(--color-primary)] 
-                               bg-clip-text text-transparent 
-                               pb-1"
-                    >
-                      {step.title}
-                    </h3>
-
-                    <p className="text-base sm:text-lg leading-relaxed text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors duration-300">
-                      {step.text}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+      {/* Scroll Container: 
+        Height is calculated to allow enough scroll distance for the animations.
+        e.g., 300vh allows for distinct scroll phases for the cards.
+      */}
+      <div ref={container} className="relative px-6 pb-24">
+        {steps.map((step, i) => {
+          // Calculate the range for this specific card's animation
+          // The last card doesn't need to scale down (target 1), others scale down slightly
+          const targetScale = 1 - (steps.length - i) * 0.05;
+          
+          return (
+            <Card
+              key={i}
+              i={i}
+              step={step}
+              progress={scrollYProgress}
+              range={[i * 0.25, 1]}
+              targetScale={targetScale}
+            />
+          );
+        })}
       </div>
     </section>
   );

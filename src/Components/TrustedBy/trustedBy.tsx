@@ -13,20 +13,23 @@ const companies = [
   { name: "Tuf", logo: "/Trust/tuf.png" },
   { name: "Vrikshit Foundation", logo: "/Trust/Varkshit.png" },
   { name: "Unacademy", logo: "/Trust/Unacademy.png" },
+  // { name: "Airtribe", logo: "/Trust/Airtribe.png" },
+  // { name: "Akto", logo: "/Trust/Akto.png" },
+  // { name: "Bhanzu", logo: "/Trust/Bhanzu.png" },
+  // { name: "ICICI", logo: "/Trust/ICICI.png" },
+  // { name: "FC-Goa", logo: "/Trust/FC.png" },
 ];
 
 const TrustedBy: React.FC = () => {
-  const logos = [...companies, ...companies];
-  const animationDuration = 45;
+  // Tripled array for seamless infinite scrolling
+  const logos = [...companies, ...companies, ...companies];
+  
+  // UPDATED: Increased duration to 90s for a slower, smoother scroll
+  const animationDuration = 90; 
 
   return (
     <section className="bg-black py-20 relative overflow-hidden font-sans border-b border-[var(--color-border)]">
       
-      {/* Removed the top gradient fade div to ensure a sharp, clean transition 
-         between the Hero's stats and this black section, exactly like the image.
-      */}
-
-      {/* Container */}
       <div className="max-w-7xl mx-auto px-6 sm:px-10 mb-16">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-center text-white">
           Trusted by the{" "}
@@ -36,7 +39,6 @@ const TrustedBy: React.FC = () => {
         </h2>
       </div>
 
-      {/* Scrolling Wrapper */}
       <div
         className="w-full overflow-hidden relative"
         style={{
@@ -48,7 +50,10 @@ const TrustedBy: React.FC = () => {
       >
         <div
           className="flex whitespace-nowrap gap-12 sm:gap-20 py-4 animate-scroll"
-          style={{ animationDuration: `${animationDuration}s` }}
+          style={{ 
+            animationDuration: `${animationDuration}s`,
+            width: "max-content" 
+          }}
         >
           {logos.map((company, idx) => (
             <div
@@ -58,11 +63,10 @@ const TrustedBy: React.FC = () => {
               <img
                 src={company.logo}
                 alt={company.name}
-                // Size maintained as requested: h-28 (mobile) / h-36 (desktop)
                 className="h-28 sm:h-36 w-auto object-contain transition-all duration-300 
-                         filter grayscale brightness-0 invert opacity-60 
-                         group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0 
-                         group-hover:scale-110"
+                          filter grayscale brightness-0 invert opacity-60 
+                          group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 group-hover:invert-0 
+                          group-hover:scale-110"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).src = `https://placehold.co/300x150/000000/FFFFFF?text=${company.name}`;
                 }}
@@ -76,7 +80,8 @@ const TrustedBy: React.FC = () => {
         {`
           @keyframes scroll {
             from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
+            /* Moves exactly 1/3rd (one full set) before resetting for a seamless loop */
+            to { transform: translateX(-33.33%); }
           }
           .animate-scroll {
             animation: scroll ${animationDuration}s linear infinite;

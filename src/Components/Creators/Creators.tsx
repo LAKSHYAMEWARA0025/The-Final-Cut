@@ -101,6 +101,30 @@ const creators: Creator[] = [
     followers: "6M followers",
     image: "/Creators/shanaya.jpg",
   },
+  {
+    name: "Abhishek Choubey",
+    instagram: "",
+    followers: "55.4k followers",
+    image: "/Creators/abhishek.jpg",
+  },
+  {
+    name: "Mario Andreas",
+    instagram: "",
+    followers: "1k followers",
+    image: "/Creators/mario_andreas1066.jpg",
+  },
+  {
+    name: "Ruchi",
+    instagram: "",
+    followers: "191k followers",
+    image: "/Creators/ruchi191k.jpg",
+  },
+  {
+    name: "Neha Nagar",
+    instagram: "",
+    followers: "2.1M followers",
+    image: "/Creators/neha.jpg",
+  },
 ];
 
 // Duplicate for seamless infinite scrolling

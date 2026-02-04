@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useCallback, SVGProps } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 // --- SVG Icons (Unchanged) ---
 const PlayIcon = (props: SVGProps<SVGSVGElement>) => (
@@ -10,7 +10,7 @@ const PlayIcon = (props: SVGProps<SVGSVGElement>) => (
 
 const PauseIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" {...props}>
-    <path d="M144 479H48c-26.5 0-48-21.5-48-48V79c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zm304-48V79c0-26.5-21.5-48-48-48h-96c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48z"></path>
+    <path d="M144 479H48c-26.5 0-48-21.5-48-48V79c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zm304-48V79c0-26.5-21.5-48-48-48h-96c-26.5 0-48 21.5-48 48v352c0 26.5-21.5 48-48 48h96c26.5 0 48-21.5 48-48z"></path>
   </svg>
 );
 
@@ -39,183 +39,225 @@ const ChevronRightIcon = (props: SVGProps<SVGSVGElement>) => (
 );
 
 // --- Data ---
-const longFormContent = [
+const originalContent = [
   {
     title: "Motivational Content",
-    description:
-      "This is a cleanly edited video where the creator shares his experience, keeping the audience engaged with the story.",
-    videoSrc:
-      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760275298/videoplayback_1_kcqas6.mp4",
+    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760275298/videoplayback_1_kcqas6.mp4",
   },
   {
     title: "Intro for a channel",
-    description:
-      "This is an intro/trailer video that highlights the teacher’s profile and the type of content she creates.",
-    videoSrc:
-      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273112/long4_hpglcu.mp4",
+    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273112/long4_hpglcu.mp4",
   },
   {
     title: "Cinematic Story Telling",
-    description:
-      "This is a documentary-style video (45k views) that blends storytelling and music, presenting the journey from problem to solution like a docuseries.",
-    videoSrc:
-      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273206/long1_coei4s.mp4",
+    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273206/long1_coei4s.mp4",
   },
   {
     title: "Talking Head",
-    description:
-      "This is a tutorial-style video focused on clean editing and high-quality audio, featuring both screen sharing and the creator’s face simultaneously.",
-    videoSrc:
-      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273232/long3_bsge2x.mp4",
+    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273232/long3_bsge2x.mp4",
+  },
+  {
+    title: "Promotional Video",
+    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1770214833/D2_Cello_1_fp3gfy.mp4",
+  },
+  {
+    title: "Promotional Video",
+    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1770216041/Yes_Securities__The_Wize_Whispers_1_infnyd.mp4",
   },
 ];
 
-const LongFormSection = () => {
-  const [index, setIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
+// --- Infinite Loop Setup ---
+// Prepend Last item, Append First item
+const extendedContent = [
+  { ...originalContent[originalContent.length - 1], id: "clone-last" },
+  ...originalContent.map((item, i) => ({ ...item, id: `original-${i}` })),
+  { ...originalContent[0], id: "clone-first" },
+];
+
+// --- Single Video Card Component ---
+const VideoCard = ({ videoSrc, title, isActive }: { videoSrc: string; title: string; isActive: boolean }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
-  const handleNext = useCallback(() => {
-    setIndex((prev) => (prev + 1) % longFormContent.length);
-    setIsPlaying(true);
-  }, []);
-
-  const handlePrev = () => {
-    setIndex(
-      (prev) => (prev - 1 + longFormContent.length) % longFormContent.length
-    );
-    setIsPlaying(true);
-  };
-
-  useEffect(() => {
-    if (isHovered) return;
-
-    const timer = setTimeout(() => {
-      handleNext();
-    }, 8000);
-    return () => clearTimeout(timer);
-  }, [index, handleNext, isHovered]);
-
+  // Auto-play active video, pause others
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
-    vid.muted = !!isMuted;
-    if (isPlaying) {
+
+    if (isActive) {
       vid.play().catch(() => {});
+      setIsPlaying(true);
     } else {
       vid.pause();
+      setIsPlaying(false);
     }
-  }, [index, isPlaying, isMuted]);
+  }, [isActive]);
 
-  const togglePlay = () => setIsPlaying(!isPlaying);
-  const toggleMute = () => setIsMuted(!isMuted);
+  const togglePlay = () => {
+    const vid = videoRef.current;
+    if (!vid) return;
+    if (isPlaying) {
+      vid.pause();
+    } else {
+      vid.play().catch(() => {});
+    }
+    setIsPlaying(!isPlaying);
+  };
 
-  const current = longFormContent[index];
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const vid = videoRef.current;
+    if (!vid) return;
+    vid.muted = !isMuted;
+    setIsMuted(!isMuted);
+  };
 
   return (
-    <section className="relative bg-black text-[var(--color-text-primary)] py-20 px-6 sm:px-10 lg:px-16 overflow-hidden font-sans border-b border-[var(--color-border)]">
+    <motion.div 
+      // Scale Effect: Active (100%), Others (90%) + Fade
+      className={`relative flex flex-col gap-4 transition-all duration-500 ease-out
+                 ${isActive ? 'scale-100 opacity-100 z-10' : 'scale-90 opacity-40 blur-[1px] z-0'}`}
+      style={{ width: 'var(--card-width)', flexShrink: 0 }} 
+    >
+      {/* Title (Orange Gradient) */}
+      <h3 className="text-xl md:text-2xl font-bold text-center truncate px-2 text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]">
+        {title}
+      </h3>
+
+      {/* Video Player Card */}
+      <div className="relative aspect-video bg-[var(--color-card-bg)] rounded-[var(--radius-lg)] overflow-hidden shadow-2xl border border-[var(--color-border)] group">
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          loop
+          muted={isMuted}
+          playsInline
+          className="w-full h-full object-cover"
+        />
+
+        {/* Mute Button */}
+        <button
+          onClick={toggleMute}
+          className="absolute top-4 right-4 z-20 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full backdrop-blur-md transition-colors"
+        >
+          {isMuted ? <VolumeMuteIcon className="w-5 h-5" /> : <VolumeUpIcon className="w-5 h-5" />}
+        </button>
+
+        {/* Play Overlay */}
+        <div 
+          onClick={togglePlay}
+          className={`absolute inset-0 z-10 flex items-center justify-center bg-black/20 transition-opacity duration-300 cursor-pointer 
+            ${isPlaying ? 'opacity-0 hover:opacity-100' : 'opacity-100'}`}
+        >
+          <div className="bg-black/40 p-4 rounded-full border border-white/10 backdrop-blur-sm transform transition hover:scale-110">
+             {isPlaying ? <PauseIcon className="w-8 h-8 text-white" /> : <PlayIcon className="w-8 h-8 text-white" />}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const LongFormSection = () => {
+  // Start at index 1 because index 0 is the "Clone Last"
+  const [index, setIndex] = useState(1);
+  const [isResetting, setIsResetting] = useState(false);
+  
+  // Gap between cards in px
+  const GAP = 32; 
+
+  // --- Infinite Loop Handlers ---
+  
+  const handleNext = useCallback(() => {
+    if (isResetting) return;
+    setIndex((prev) => prev + 1);
+  }, [isResetting]);
+
+  const handlePrev = useCallback(() => {
+    if (isResetting) return;
+    setIndex((prev) => prev - 1);
+  }, [isResetting]);
+
+  // Handle Snap Effect when reaching clones
+  const onAnimationComplete = () => {
+    if (index === extendedContent.length - 1) {
+      // Reached "Clone First" at the end -> Snap to "Real First" (Index 1)
+      setIsResetting(true);
+      setIndex(1);
+    } else if (index === 0) {
+      // Reached "Clone Last" at the start -> Snap to "Real Last" (Length - 2)
+      setIsResetting(true);
+      setIndex(extendedContent.length - 2);
+    }
+  };
+
+  // Re-enable animation after snap (brief delay to allow DOM update)
+  useEffect(() => {
+    if (isResetting) {
+      const timer = setTimeout(() => {
+        setIsResetting(false);
+      }, 50);
+      return () => clearTimeout(timer);
+    }
+  }, [isResetting]);
+
+  return (
+    <section className="bg-black text-[var(--color-text-primary)] py-20 overflow-hidden font-sans border-b border-[var(--color-border)]">
       
-      <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-center mb-16">
-        Long{" "}
+      <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-center mb-16 px-4">
+        Long Form{" "}
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-light)]">
-          Form Content
+          Content
         </span>
       </h2>
 
-      <div className="relative max-w-7xl mx-auto">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className="flex flex-col lg:flex-row items-center justify-center gap-10 p-8 rounded-[var(--radius-lg)] shadow-2xl 
-                       border border-[var(--color-border)] bg-[var(--color-card-bg)] 
-                       transition-all duration-300 hover:border-[var(--color-primary)]/50
-                       hover:shadow-[0_0_40px_-10px_rgba(255,122,42,0.3)]"
+      {/* CAROUSEL CONTAINER */}
+      <div className="relative w-full flex flex-col items-center gap-10" style={{ '--card-width': 'min(75vw, 600px)' } as React.CSSProperties}>
+        
+        {/* Track */}
+        <div className="w-full flex justify-center overflow-visible">
+          <motion.div 
+            className="flex gap-8 items-start"
+            animate={{
+              // Center the current card
+              x: `calc(50% - (var(--card-width) / 2) - (${index} * (var(--card-width) + ${GAP}px)))`
+            }}
+            // Disable animation during 'snap' reset
+            transition={isResetting ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 30 }}
+            onAnimationComplete={onAnimationComplete}
           >
-            {/* Left side - video container */}
-            <div className="relative w-full lg:w-1/2 aspect-video rounded-[var(--radius-md)] overflow-hidden shadow-2xl group border border-[var(--color-border)]">
-              <video
-                ref={videoRef}
-                key={current.videoSrc}
-                src={current.videoSrc}
-                autoPlay={isPlaying}
-                loop
-                muted={isMuted}
-                playsInline
-                className="w-full h-full object-cover rounded-[var(--radius-md)]"
-                preload="auto"
+            {extendedContent.map((content, i) => (
+              <VideoCard 
+                key={`${content.id}-${i}`} 
+                {...content} 
+                isActive={i === index} 
               />
-
-              <button
-                onClick={toggleMute}
-                aria-label={isMuted ? "Unmute video" : "Mute video"}
-                className="absolute top-3 right-3 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full backdrop-blur-sm transition-all duration-300 z-20"
-              >
-                {isMuted ? (
-                  <VolumeMuteIcon className="w-5 h-5" />
-                ) : (
-                  <VolumeUpIcon className="w-5 h-5" />
-                )}
-              </button>
-
-              <div
-                onClick={togglePlay}
-                className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 hover:bg-black/40 transition-all duration-300 rounded-[var(--radius-md)] z-10 cursor-pointer"
-              >
-                <button
-                  aria-label={isPlaying ? "Pause video" : "Play video"}
-                  className="text-white text-5xl transform transition-transform hover:scale-110"
-                >
-                  {isPlaying ? <PauseIcon /> : <PlayIcon />}
-                </button>
-              </div>
-            </div>
-
-            {/* Right side - text content */}
-            <div className="w-full lg:w-1/2">
-              <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-[var(--color-text-primary)] to-[var(--color-primary-light)] bg-clip-text text-transparent">
-                {current.title}
-              </h3>
-              <p className="text-[var(--color-text-secondary)] mb-4 leading-relaxed text-base lg:text-lg">
-                {current.description}
-              </p>
-              
-              <div className="flex gap-2 mt-6">
-                {longFormContent.map((_, i) => (
-                  <div 
-                    key={i} 
-                    className={`h-1.5 rounded-full transition-all duration-300 ${i === index ? 'w-8 bg-[var(--color-primary)]' : 'w-2 bg-[var(--color-border)]'}`}
-                  />
-                ))}
-              </div>
-            </div>
+            ))}
           </motion.div>
-        </AnimatePresence>
+        </div>
 
-        {/* --- NAVIGATION BUTTONS (FIXED) --- */}
-        <button
-          onClick={handlePrev}
-          aria-label="Previous"
-          // Removed 'hidden lg:block' so buttons appear on all screens
-          className="absolute top-1/2 -translate-y-1/2 -left-4 md:-left-12 bg-[var(--color-card-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] text-white rounded-full p-3 transition z-20 shadow-lg"
-        >
-          <ChevronLeftIcon className="w-6 h-6" />
-        </button>
-        <button
-          onClick={handleNext}
-          aria-label="Next"
-          // Removed 'hidden lg:block' so buttons appear on all screens
-          className="absolute top-1/2 -translate-y-1/2 -right-4 md:-right-12 bg-[var(--color-card-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] text-white rounded-full p-3 transition z-20 shadow-lg"
-        >
-          <ChevronRightIcon className="w-6 h-6" />
-        </button>
+        {/* Navigation Buttons (Below) */}
+        <div className="flex items-center gap-6 mt-4 z-20">
+          <button
+            onClick={handlePrev}
+            disabled={isResetting}
+            className="bg-[var(--color-card-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] text-white rounded-full p-4 transition-all shadow-lg hover:scale-110 hover:bg-[var(--color-card-bg)]/80 disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Previous Video"
+          >
+            <ChevronLeftIcon className="w-6 h-6" />
+          </button>
+          
+          <button
+            onClick={handleNext}
+            disabled={isResetting}
+            className="bg-[var(--color-card-bg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] text-white rounded-full p-4 transition-all shadow-lg hover:scale-110 hover:bg-[var(--color-card-bg)]/80 disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Next Video"
+          >
+            <ChevronRightIcon className="w-6 h-6" />
+          </button>
+        </div>
+
       </div>
     </section>
   );

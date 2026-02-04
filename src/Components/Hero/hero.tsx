@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import React from "react";
 
-// Icons remain unchanged
+// --- Icons (Unchanged) ---
 const PlayIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
     <path fill="currentColor" d="M549.655 124.083c-6.28-23.746-24.835-42.228-48.4-48.423C477.595 59.837 452.548 64 288 64S98.405 59.837 74.745 75.66c-23.565 6.195-42.12 24.677-48.4 48.423C22.32 153.29 20 206 20 256s2.32 102.71 6.345 131.917c6.28 23.746 24.835 42.228 48.4 48.423C98.405 454.163 123.452 448 288 448s189.595 6.163 213.255-9.66c23.565 6.195 42.12-24.677 48.4-48.423C553.68 358.71 556 306 556 256s-2.32-102.71-6.345-131.917zM288 368c-57.392 0-104-46.608-104-104s46.608-104 104-104 104 46.608 104 104-46.608 104-104 104zM232 216V300L352 258L232 216z"/>
@@ -28,6 +28,28 @@ const Hero: React.FC = () => {
     { text: "5000+ Videos Created", icon: CalendarIcon },
   ];
 
+  // Sketch Animation Configuration
+  const sketchVariants: Variants = {
+    hidden: { pathLength: 0, opacity: 0 },
+    visible: (i: number) => ({
+      pathLength: 1,
+      opacity: 1,
+      transition: {
+        pathLength: { delay: i * 0.2, duration: 0.8, ease: "easeInOut" },
+        opacity: { delay: i * 0.2, duration: 0.01 },
+      },
+    }),
+  };
+
+  // UPDATED PATHS:
+  // Designed to match the reference: Two slanting strokes moving up from left to right.
+  const sketchPaths = [
+    // Top stroke: Starts left-mid, curves up to right-top
+    "M 5 15 Q 100 5 195 2", 
+    // Bottom stroke: Starts lower-left, curves up parallel underneath
+    "M 15 22 Q 100 12 185 8",
+  ];
+
   return (
     <section className="relative min-h-screen w-full font-sans overflow-x-hidden">
       
@@ -43,20 +65,45 @@ const Hero: React.FC = () => {
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-4 pt-48 pb-20 md:pt-64 md:pb-32 gap-8">
         
         {/* Headline */}
-        {/* max-w-7xl allows text to stay on one line.
-            whitespace-nowrap forces it to stay one line on desktop (lg+), 
-            but allows wrapping on mobile/tablet to avoid breakage. */}
         <motion.h1 
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[var(--color-text-primary)] w-full max-w-7xl lg:whitespace-nowrap tracking-tight leading-[1.1]" 
           variants={itemVariants} 
           initial="hidden" 
           animate="visible"
         >
-          Build Your Personal Brand <span className="text-[var(--color-primary)]">Organically</span>
+          Build Your Personal Brand{" "}
+          <span className="relative inline-block text-[var(--color-primary)]">
+            Organically
+            
+            {/* Sketch Underline Container */}
+            {/* Centered with w-[85%] to cover the 'center part' of the word */}
+            <div className="absolute w-[85%] h-6 -bottom-4 left-1/2 -translate-x-1/2 pointer-events-none">
+              <svg
+                viewBox="0 0 200 25" // Increased viewbox height to accommodate slope
+                className="w-full h-full"
+                preserveAspectRatio="none"
+              >
+                {sketchPaths.map((path, index) => (
+                  <motion.path
+                    key={index}
+                    d={path}
+                    fill="none"
+                    stroke="currentColor" 
+                    strokeWidth="4" // Slightly bold as requested
+                    strokeLinecap="round" // Rounded ends for marker effect
+                    strokeLinejoin="round"
+                    custom={index}
+                    variants={sketchVariants}
+                    initial="hidden"
+                    animate="visible"
+                  />
+                ))}
+              </svg>
+            </div>
+          </span>
         </motion.h1>
 
         {/* Subtext */}
-        {/* max-w-3xl is the perfect width to force this specific sentence into exactly 2 lines */}
         <motion.p 
           className="text-[var(--color-text-secondary)] text-lg sm:text-xl max-w-3xl mx-auto w-full leading-relaxed font-medium" 
           variants={itemVariants}
@@ -100,8 +147,7 @@ const Hero: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* NEW: Bottom Fading Div for Seamless Transition to Black */}
-      {/* This creates the gradient fade from gray to black at the bottom of the hero */}
+      {/* Bottom Fading Div */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none z-20"></div>
     </section>
   );
