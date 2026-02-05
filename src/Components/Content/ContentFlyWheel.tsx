@@ -34,66 +34,82 @@ const TikTokIcon = () => (
 
 const RedditIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 text-[#FF4500]">
-    <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/>
+    <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.249-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/>
+  </svg>
+);
+
+const PodcastIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 text-[#8b5cf6]">
+    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+    <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
   </svg>
 );
 
 // --- Items Configuration ---
-// Coords: Left/Top percentages relative to the container.
-// 6 Items distributed hexagonally (60 degrees apart)
+// 7 Items distributed evenly (Heptagon, ~51.4 degrees apart).
+// Coordinates are calculated to fit the circle symmetrically.
 const items = [
   { 
     id: 'instagram',
     icon: InstagramIcon, 
     label: "Instagram Reels", 
     color: "bg-pink-900/20 border-pink-500/50", 
-    style: { left: "93%", top: "25%" }, // Top-Right (approx)
+    style: { left: "88%", top: "20%" }, // Top-Right
     appearStart: 0.05, 
     appearEnd: 0.15
+  },
+  { 
+    id: 'podcast',
+    icon: PodcastIcon, 
+    label: "Podcast Repurpose", 
+    color: "bg-purple-900/20 border-purple-500/50", 
+    style: { left: "95%", top: "60%" }, // Right (Mid)
+    appearStart: 0.18,
+    appearEnd: 0.28
   },
   { 
     id: 'shorts',
     icon: ShortsIcon, 
     label: "YouTube Shorts", 
     color: "bg-stone-800/50 border-white/20", 
-    style: { left: "93%", top: "75%" }, // Bottom-Right
-    appearStart: 0.20,
-    appearEnd: 0.30
+    style: { left: "65%", top: "95%" }, // Bottom-Right
+    appearStart: 0.31,
+    appearEnd: 0.41
   },
   { 
     id: 'tiktok',
     icon: TikTokIcon, 
     label: "TikTok Video", 
     color: "bg-teal-900/20 border-teal-500/50", 
-    style: { left: "50%", top: "100%" }, // Bottom Center
-    appearStart: 0.35,
-    appearEnd: 0.45
+    style: { left: "35%", top: "95%" }, // Bottom-Left
+    appearStart: 0.44,
+    appearEnd: 0.54
   },
   { 
     id: 'reddit',
     icon: RedditIcon, 
     label: "Reddit Copies", 
     color: "bg-orange-900/20 border-orange-500/50", 
-    style: { left: "7%", top: "75%" }, // Bottom-Left
-    appearStart: 0.50,
-    appearEnd: 0.60
+    style: { left: "5%", top: "60%" }, // Left (Mid)
+    appearStart: 0.57,
+    appearEnd: 0.67
   },
   { 
     id: 'youtube',
     icon: YouTubeIcon, 
-    label: "YouTube Long Videos", 
+    label: "YouTube Long", 
     color: "bg-red-900/20 border-red-500/50", 
-    style: { left: "7%", top: "25%" }, // Top-Left
-    appearStart: 0.65,
-    appearEnd: 0.75
+    style: { left: "12%", top: "20%" }, // Top-Left
+    appearStart: 0.70,
+    appearEnd: 0.80
   },
   { 
     id: 'linkedin',
     icon: LinkedInIcon, 
     label: "LinkedIn Posts", 
     color: "bg-blue-900/20 border-blue-500/50", 
-    style: { left: "50%", top: "0%" }, // Top Center
-    appearStart: 0.80,
+    style: { left: "50%", top: "0%" }, // Top
+    appearStart: 0.83,
     appearEnd: 0.95
   },
 ];
@@ -155,7 +171,7 @@ const ContentFlywheel: React.FC = () => {
             <span className="text-[10px] sm:text-sm text-gray-400 uppercase tracking-widest mt-1">Content</span>
           </div>
 
-          {/* 3. STATIC ITEMS (Fixed Positions) */}
+          {/* 3. STATIC ITEMS (Fixed Cardinal Positions) */}
           {items.map((item) => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const opacity = useTransform(
@@ -184,11 +200,11 @@ const ContentFlywheel: React.FC = () => {
                 }}
                 className="absolute z-30"
               >
-                {/* REDUCED SIZE: 
-                    - Mobile: w-16 h-16 (from 72px)
-                    - Tablet: sm:w-28 sm:h-28 (from 36)
+                {/* REDUCED SIZE A LITTLE BIT MORE FOR 7 ITEMS: 
+                    - Mobile: w-14 h-14
+                    - Tablet: sm:w-24 sm:h-24
                 */}
-                <div className={`flex flex-col items-center justify-center gap-1 sm:gap-2 w-16 h-16 xs:w-20 xs:h-20 sm:w-28 sm:h-28 rounded-2xl backdrop-blur-xl bg-black/95 border ${item.color} shadow-2xl p-2 sm:p-3 text-[var(--color-text-primary)]`}>
+                <div className={`flex flex-col items-center justify-center gap-1 sm:gap-2 w-14 h-14 xs:w-16 xs:h-16 sm:w-24 sm:h-24 rounded-2xl backdrop-blur-xl bg-black/95 border ${item.color} shadow-2xl p-2 sm:p-3 text-[var(--color-text-primary)]`}>
                     <item.icon />
                     <span className="text-[8px] xs:text-[9px] sm:text-xs font-bold text-center leading-tight">
                       {item.label}

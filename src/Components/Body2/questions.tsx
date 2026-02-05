@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     question: "What is the timeline for results to show up?",
-    answer: "Usually it takes 3-4 months and for 90% of our creators it took 3-4 months time to get a viral video and drive actual numbers.",
+    answer: "Most clients start seeing content performance results within 1–2 months. But the ones who grow the most are those who stay consistent with the process for 3–6 months. Content is the game of experiments.",
   },
   {
     question: "Are there any guaranteed results?",
