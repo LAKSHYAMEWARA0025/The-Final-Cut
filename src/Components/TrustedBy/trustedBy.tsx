@@ -13,11 +13,11 @@ const companies = [
   { name: "Tuf", logo: "/Trust/tuf.png" },
   { name: "Vrikshit Foundation", logo: "/Trust/Varkshit.png" },
   { name: "Unacademy", logo: "/Trust/Unacademy.png" },
-  // { name: "Airtribe", logo: "/Trust/Airtribe.png" },
-  // { name: "Akto", logo: "/Trust/Akto.png" },
-  // { name: "Bhanzu", logo: "/Trust/Bhanzu.png" },
-  // { name: "ICICI", logo: "/Trust/ICICI.png" },
-  // { name: "FC-Goa", logo: "/Trust/FC.png" },
+  { name: "Airtribe", logo: "/Trust/Airtribe.png" },
+  { name: "Akto", logo: "/Trust/Akto.png" },
+  { name: "Bhanzu", logo: "/Trust/Bhanzu.png" },
+  { name: "ICICI", logo: "/Trust/ICICI.png" },
+  { name: "FC-Goa", logo: "/Trust/FCGoa.png" },
 ];
 
 const TrustedBy: React.FC = () => {

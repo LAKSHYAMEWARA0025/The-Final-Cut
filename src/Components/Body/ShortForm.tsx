@@ -148,7 +148,7 @@ const VideoPlayer = ({ src, index, label }: { src: string; index: number; label:
 const videos = [
   {
     src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273129/short1_b3drzw.mp4",
-    label: "Story Telling",
+    label: "Storytelling",
   },
   {
     src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273117/short2_yxndjg.mp4",
@@ -159,8 +159,8 @@ const videos = [
     label: "Informational",
   },
   {
-    src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273139/short6_bgvgmt.mp4",
-    label: "Introduction",
+    src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273147/short5_yp3fat.mp4",
+    label: "Intro",
   },
   {
     src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1770216248/Infographics_Samco_securities_1_xfgc1l.mp4",

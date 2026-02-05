@@ -45,11 +45,11 @@ const originalContent = [
     videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760275298/videoplayback_1_kcqas6.mp4",
   },
   {
-    title: "Intro for a channel",
+    title: "Channel Intro",
     videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273112/long4_hpglcu.mp4",
   },
   {
-    title: "Cinematic Story Telling",
+    title: "Cinematic Storytelling",
     videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273206/long1_coei4s.mp4",
   },
   {
@@ -57,7 +57,7 @@ const originalContent = [
     videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273232/long3_bsge2x.mp4",
   },
   {
-    title: "Promotional Video",
+    title: "Product Launch Video",
     videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1770214833/D2_Cello_1_fp3gfy.mp4",
   },
   {
