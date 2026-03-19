@@ -90,7 +90,7 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     video:
-      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273120/Raj_dmmst5.mp4",
+      "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927466/Raj_jusq11.mp4",
     name: "Striver(Raj)",
     role: "Founder of TUF, ex SDE at Google & Amazon",
     review:
@@ -98,7 +98,7 @@ const testimonials: Testimonial[] = [
   },
   {
     video:
-      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273156/Aarushi_pmzyme.mov",
+      "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927503/Aarushi_myzmch.mov",
     name: "Aarushi Bedi",
     role: "Founder of The Fluent Flyers, Ex International Cabin Crew",
     review:
@@ -106,7 +106,7 @@ const testimonials: Testimonial[] = [
   },
   {
     video:
-      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760275963/Saumya_vblbiu.mov",
+      "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927320/Saumya_eisv9k.mov",
     name: "Saumya Singh",
     role: "TEDx Speaker, Josh Talks Speaker, ex-SDE at RedHat",
     review:
@@ -114,7 +114,7 @@ const testimonials: Testimonial[] = [
   },
   {
     video:
-      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273142/Shreyansh_pmqxx8.mp4",
+      "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927388/Shreyansh_cvf8op.mp4",
     name: "Shreyansh Goyal",
     role: "TEDx speaker, SDE",
     review:
@@ -122,7 +122,7 @@ const testimonials: Testimonial[] = [
   },
   {
     video:
-      "https://res.cloudinary.com/dsol6ftem/video/upload/v1760275405/VidhiKalra_uo53x8.mp4",
+      "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927537/Vidhi_Kalra_qiulrx.mov",
     name: "Vidhi Karla",
     role: "Founder of 5-minute economics",
     review:

@@ -42,27 +42,27 @@ const ChevronRightIcon = (props: SVGProps<SVGSVGElement>) => (
 const originalContent = [
   {
     title: "Motivational Content",
-    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760275298/videoplayback_1_kcqas6.mp4",
+    videoSrc: "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927708/videoplayback_2_gvhvac.mp4",
   },
   {
     title: "Channel Intro",
-    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273112/long4_hpglcu.mp4",
+    videoSrc: "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927236/intro_for_a_channel_xffkd4.mp4",
   },
   {
     title: "Cinematic Storytelling",
-    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273206/long1_coei4s.mp4",
+    videoSrc: "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927258/A_Story_of_My_Placement_Finally_Placed_-_Vijay_Choudhary_1080p_h264_xcbszp.mp4",
   },
   {
     title: "Talking Head",
-    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273232/long3_bsge2x.mp4",
+    videoSrc: "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927221/Not_Enjoying_Development_-_Striver_1080p_h264_1_e1wwsz.mp4",
   },
   {
     title: "Product Launch Video",
-    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1770214833/D2_Cello_1_fp3gfy.mp4",
+    videoSrc: "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773928274/D2_Cello_1_1_zmhxrc.mp4",
   },
   {
     title: "Promotional Video",
-    videoSrc: "https://res.cloudinary.com/dsol6ftem/video/upload/v1770216041/Yes_Securities__The_Wize_Whispers_1_infnyd.mp4",
+    videoSrc: "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773928438/Yes_Securities__The_Wize_Whispers_1_1_oymtro.mp4",
   },
 ];
 

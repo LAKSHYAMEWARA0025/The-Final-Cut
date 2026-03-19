@@ -147,23 +147,23 @@ const VideoPlayer = ({ src, index, label }: { src: string; index: number; label:
    ------------------- */
 const videos = [
   {
-    src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273129/short1_b3drzw.mp4",
+    src: "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927163/storytelling_Harman_d4nvj3.mp4",
     label: "Storytelling",
   },
   {
-    src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273117/short2_yxndjg.mp4",
+    src: "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927151/Repurpose_ypsfau.mp4",
     label: "Podcast repurpose",
   },
   {
-    src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273133/short4_abfdzu.mp4",
+    src: "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927123/Informational_re3dfe.mp4",
     label: "Informational",
   },
   {
-    src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1760273147/short5_yp3fat.mp4",
+    src: "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773927140/Saumya_Intro_lko8ej.mp4",
     label: "Intro",
   },
   {
-    src: "https://res.cloudinary.com/dsol6ftem/video/upload/v1770216248/Infographics_Samco_securities_1_xfgc1l.mp4",
+    src: "https://res.cloudinary.com/dxfr6mqsc/video/upload/v1773928073/Infographics_Samco_securities_1_1_gcr1yr.mp4",
     label: "Infographics",
   },
 ];
